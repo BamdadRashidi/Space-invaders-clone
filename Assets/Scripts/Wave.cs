@@ -1,0 +1,205 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class Wave : MonoBehaviour
+{
+    [SerializeField] private GameObject ThinEnemy;
+    [SerializeField] private GameObject ThickEnemy;
+    [SerializeField] private GameObject FollowEnemy;
+    [SerializeField] private int rows;
+    [SerializeField] private int columns;
+    [SerializeField] private float distance;
+    [SerializeField] private float speedTimer;
+    private WaveManager wavemanager;
+    private bool needToDescend;
+    private Vector2 direction;
+    private GameObject enemy;
+    private float timer;
+    private BoxCollider2D left;
+    private BoxCollider2D right;
+    public int AlienCount;
+    public float tempSpeedTimer;
+    private int coinflip;
+    private const int AlienCountInit = 40;
+    private bool isboosted = false;
+    
+    void Start()
+    {
+        direction = Vector2.right;
+        tempSpeedTimer = speedTimer;
+        wavemanager = FindObjectOfType<WaveManager>();
+        right = left = GetComponent<BoxCollider2D>();
+        needToDescend = false;
+        timer = speedTimer;
+        CreateWave();
+    }
+    
+    void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            if (!needToDescend)
+            {
+                moveFormationH();
+            }
+            if (needToDescend)
+            {
+                moveFormationV();
+            }
+
+            ChangeSprite();
+        }
+
+        if (transform.childCount <= Mathf.Ceil(0.4f * AlienCountInit) && !isboosted)
+        {
+            Debug.Log("Boosted");
+            BoostAliens();
+        }
+    }
+
+    public void CreateWave()
+    {
+        float width = (columns - 1) * distance;
+        float height = (rows - 1) * distance;
+        Vector3 offset = new Vector3(width / 2f, height / 2f, 0);
+        
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (i < 2)
+                {
+                    enemy = ThinEnemy;
+                }
+
+                else if (i >= 2 && i < 4)
+                {
+                    enemy = ThickEnemy;
+                }
+                
+                else if (i >= 4)
+                {
+                    enemy = FollowEnemy;
+                }
+
+                
+                Vector3 position = new Vector3(j * distance, i * distance,0) - offset;
+                Instantiate(enemy, position, Quaternion.identity, transform);
+            }
+        }
+        AlienCount = transform.childCount;
+        wavemanager.waveEnded = false;
+        MakeEnemiesAggressive();
+    }
+
+    public void moveFormationH()
+    {
+        transform.position += (Vector3)(direction * distance/2f);
+        timer = tempSpeedTimer;
+        return;
+    }
+
+    public void moveFormationV()
+    {
+        transform.position -= new Vector3(0,distance/2f);
+        needToDescend = false;
+        timer = tempSpeedTimer;
+        return;
+    }
+
+    public void flipFormation()
+    {
+        direction *= -1;
+        return;
+    }
+
+    public void resetWave()
+    {
+        int coinflip = Random.Range(0, 2);
+        switch (coinflip)
+        {
+            case 0:
+                direction = Vector2.left;
+                break;
+            case 1:
+                direction = Vector2.right;
+                break;
+        }
+        needToDescend = false;
+        wavemanager.waveCount++;
+        this.transform.position = new Vector3(0,15,0);
+        isboosted = false;
+        if (wavemanager.waveEnded)
+        {
+            increaseDifficultyPerWave();
+        }
+        CreateWave();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            needToDescend = true;
+            flipFormation();
+        }
+    }
+
+    public void reduceAlien()
+    {
+        AlienCount--;
+        int aliensKilled = AlienCountInit - AlienCount;
+        if (AlienCount <= 0)
+        {
+            wavemanager.waveEnded = true;
+        }
+        if (AlienCount != 0)
+        {
+            tempSpeedTimer = speedTimer - (0.03f * aliensKilled);
+            tempSpeedTimer = Mathf.Max(tempSpeedTimer, 0.07f);
+        }
+    }
+
+    public void increaseDifficultyPerWave()
+    {
+        speedTimer -= 0.1f;
+        speedTimer = Mathf.Max(speedTimer, 0.07f);
+        tempSpeedTimer = speedTimer;
+    }
+    private void ChangeSprite()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.GetComponent<Enemy>().flipSprite();
+        }
+    }
+
+    private void MakeEnemiesAggressive()
+    {
+        float difficultyValue = 0.03f * (wavemanager.waveCount - 1);
+        foreach (Transform child in transform)
+        {
+            Enemy childScript = child.gameObject.GetComponent<Enemy>();
+            childScript.firstOfRange -= difficultyValue;
+            childScript.lastOfRange -= difficultyValue;
+            childScript.firstOfRange = Mathf.Max(childScript.firstOfRange, 0.25f);
+            childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.25f);
+        }
+    }
+    private void BoostAliens()
+    {
+        foreach (Transform child in transform)
+        {
+            Enemy childScript = child.gameObject.GetComponent<Enemy>();
+            childScript.firstOfRange -= Mathf.Floor(childScript.firstOfRange * 0.45f);
+            childScript.lastOfRange -= Mathf.Floor(childScript.lastOfRange * 0.45f);
+            childScript.firstOfRange = Mathf.Max(childScript.firstOfRange, 0.25f);
+            childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.25f);
+        }
+        isboosted = true;
+    }
+}
