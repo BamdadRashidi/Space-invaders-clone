@@ -25,7 +25,6 @@ public class Wave : MonoBehaviour
     private int coinflip;
     private const int AlienCountInit = 40;
     private bool isboosted = false;
-    
     void Start()
     {
         direction = Vector2.right;
@@ -85,7 +84,6 @@ public class Wave : MonoBehaviour
                 {
                     enemy = FollowEnemy;
                 }
-
                 
                 Vector3 position = new Vector3(j * distance, i * distance,0) - offset;
                 Instantiate(enemy, position, Quaternion.identity, transform);
@@ -93,7 +91,10 @@ public class Wave : MonoBehaviour
         }
         AlienCount = transform.childCount;
         wavemanager.waveEnded = false;
-        MakeEnemiesAggressive();
+        if (!LifeManager.isInDeathSequence)
+        {
+            MakeEnemiesAggressive();
+        }
     }
 
     public void moveFormationH()
@@ -117,7 +118,7 @@ public class Wave : MonoBehaviour
         return;
     }
 
-    public void resetWave()
+    public void resetWaveAtStart()
     {
         int coinflip = Random.Range(0, 2);
         switch (coinflip)
@@ -201,5 +202,15 @@ public class Wave : MonoBehaviour
             childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.25f);
         }
         isboosted = true;
+    }
+
+    public void ResetWaveAtDeath()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        transform.position = new Vector3(0, 15, 0);
+        CreateWave();
     }
 }

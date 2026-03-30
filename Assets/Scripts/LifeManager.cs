@@ -8,7 +8,7 @@ public class LifeManager : MonoBehaviour
     public static LifeManager Instance { get; private set; }
     [SerializeField] public int lives;
     [SerializeField] private GameObject player;
-    public bool isInDeathSequence;
+    public static bool isInDeathSequence;
     private void Awake()
     {
         isInDeathSequence = false;
@@ -43,8 +43,9 @@ public class LifeManager : MonoBehaviour
         {
             Debug.Log("Game Over");
             //TODO: add the Saving High-Score System and make the Game Over System
-            ScoreManager.Instance.setHighScore(); // WIP
+            ScoreManager.Instance.setHighScore();
+            return;
         }
-        player.GetComponent<Player>().KillOrResurrect(); // add this to the end of Dying and respawning sequence but not to the game over
+        GameManager.instance.StartDeathSequence();
     }
 }

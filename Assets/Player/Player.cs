@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField] public bool died;
     private float timerCounter;
     private BoxCollider2D collider;
+    private ParticleSystem particles;
+    private SpriteRenderer renderer;
     void Start()
     {
         initialPosition = new Vector3(0,-25,0);
@@ -24,6 +26,8 @@ public class Player : MonoBehaviour
         timerCounter = fireRate;
         collider = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+        particles = GetComponent<ParticleSystem>();
+        renderer = GetComponent<SpriteRenderer>();
     }
     
     void Update()
@@ -52,18 +56,31 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer != LayerMask.NameToLayer("Bullet") &&
             other.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
-            KillOrResurrect();
+            died = true;
             Destroy(other.gameObject);
         }
     }
-
-    public void KillOrResurrect()
-    {
-        died = !died;
-    }
-
+    
     public void resetPlayer()
     {
         transform.position = initialPosition;
+        collider.enabled = true;
+        renderer.enabled = true;
+        died = false;
     }
+
+
+    public void Die()
+    {
+        var main = particles.main;
+        main.useUnscaledTime = true;
+        particles.Play();
+        collider.enabled = false;
+        renderer.enabled = false;
+        rb.velocity = Vector2.zero;
+        this.enabled = false;
+    }
+
+
+
 }

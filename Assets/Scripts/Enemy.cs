@@ -73,7 +73,7 @@ public abstract class Enemy : MonoBehaviour
         if (!(this is Bunker))
         {
             renderer.enabled = false;
-            Destroy(gameObject,1);
+            Destroy(gameObject,0.3f);
         }
     }
 

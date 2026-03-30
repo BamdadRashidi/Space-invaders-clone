@@ -29,7 +29,7 @@ public class WaveManager : MonoBehaviour
 
         if (timer <= 0)
         {
-            wave.resetWave();
+            wave.resetWaveAtStart();
             timer = timerToNextWave;
         }
 
