@@ -2,17 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     private LifeManager lifemanager;
+    private WaveManager waveManager;
     private Player player;
     private Wave wave;
+    private ScoreManager ScoreManager;
     private GameObject[] Bullets;
     private bool isPaused = false;
     void Start()
     {
+        waveManager = FindObjectOfType<WaveManager>();
         wave = FindObjectOfType<Wave>();
         player = FindObjectOfType<Player>();
         lifemanager = FindObjectOfType<LifeManager>();
@@ -40,6 +45,11 @@ public class GameManager : MonoBehaviour
         player.Die();
         yield return new WaitForSecondsRealtime(2f);
         
+        if (LifeManager.isGameOvered)
+        {
+            StartCoroutine("GameOverSequence");
+        }
+        
         player.resetPlayer();
         player.enabled = true;
         
@@ -47,14 +57,13 @@ public class GameManager : MonoBehaviour
         Reset();
         
         Time.timeScale = 1f;
-
+        UIManager.instance.GameOverText.enabled = false;
         LifeManager.isInDeathSequence = false;
     }
 
     private void Update()
     {
-        // Pausing
-        
+        //Pausing
         if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0;
@@ -86,4 +95,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator GameOverSequence()
+    {
+        ScoreManager.Instance.setHighScore();
+        WaveManager wm = FindObjectOfType<WaveManager>();
+        int reachedWave = wm ? wm.waveCount : 1;
+        ScoreManager.Instance.SaveToFile(reachedWave);
+        
+        UIManager.instance.GameOverText.enabled = true;
+        
+        yield return new WaitForSecondsRealtime(3f);
+        
+        // reset everything
+        waveManager.ResetWaveNumber();
+        ScoreManager.Instance.ResetScore();
+        lifemanager.ResetLives();
+        Time.timeScale = 1f;
+    }
+    
 }

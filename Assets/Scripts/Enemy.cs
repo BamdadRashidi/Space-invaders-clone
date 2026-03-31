@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Random = UnityEngine.Random;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -20,9 +21,11 @@ public abstract class Enemy : MonoBehaviour
     protected BoxCollider2D collider;
     protected int[] scores = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000};
     [SerializeField] protected Sprite[] sprites;
-    
+    [SerializeField] protected AudioClip[] clips;
+    protected AudioSource aud;
     public void Awake()
     {
+        aud = GetComponent<AudioSource>();
         firstOfRangeinit = firstOfRange;
         lastOfRangeinit = lastOfRange;
         anim = GetComponent<Animator>();
@@ -62,7 +65,10 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Die()
     {
-        //TODO: add audio
+        aud.volume = 0.6f;
+        aud.pitch = Random.Range(0.95f, 1.05f);
+        aud.clip = clips[1];
+        aud.Play();
         collider.enabled = false;
         particle.Play();
         if (!(this is UFO) && !(this is Bunker))

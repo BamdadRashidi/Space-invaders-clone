@@ -9,6 +9,7 @@ public class LifeManager : MonoBehaviour
     [SerializeField] public int lives;
     [SerializeField] private GameObject player;
     public static bool isInDeathSequence;
+    public static bool isGameOvered = false;
     private void Awake()
     {
         isInDeathSequence = false;
@@ -19,7 +20,6 @@ public class LifeManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
 
         player = GameObject.FindWithTag("Player");
@@ -38,14 +38,17 @@ public class LifeManager : MonoBehaviour
         if (isInDeathSequence) return;
         lives--;
         isInDeathSequence = true;
-        Debug.Log(lives);
+        UIManager.instance.UpdateLives(lives);
         if (lives <= 0)
         {
-            Debug.Log("Game Over");
-            //TODO: add the Saving High-Score System and make the Game Over System
-            ScoreManager.Instance.setHighScore();
-            return;
+            isGameOvered = true;
         }
+        
         GameManager.instance.StartDeathSequence();
+    }
+
+    public void ResetLives()
+    {
+        lives = 3;
     }
 }

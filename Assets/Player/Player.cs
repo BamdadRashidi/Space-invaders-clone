@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
 
@@ -19,6 +20,9 @@ public class Player : MonoBehaviour
     private BoxCollider2D collider;
     private ParticleSystem particles;
     private SpriteRenderer renderer;
+    private AudioSource aud;
+    private int AudioCoinFlip;
+    [SerializeField] private AudioClip[] clips; 
     void Start()
     {
         initialPosition = new Vector3(0,-25,0);
@@ -28,6 +32,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         particles = GetComponent<ParticleSystem>();
         renderer = GetComponent<SpriteRenderer>();
+        aud = GetComponent<AudioSource>();
     }
     
     void Update()
@@ -48,6 +53,10 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        RollVolume();
+        aud.volume = 0.6f;
+        aud.pitch = Random.Range(0.9f, 1.1f);
+        aud.Play();
         Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
     }
 
@@ -72,6 +81,10 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        aud.clip = clips[3];
+        aud.volume = 1f;
+        aud.pitch = Random.Range(0.9f, 1f);
+        aud.Play();
         var main = particles.main;
         main.useUnscaledTime = true;
         particles.Play();
@@ -81,6 +94,21 @@ public class Player : MonoBehaviour
         this.enabled = false;
     }
 
-
+    private void RollVolume()
+    {
+        AudioCoinFlip = Random.Range(0, 3);
+        switch (AudioCoinFlip)
+        {
+            case 0:
+                aud.clip = clips[0];
+                break;
+            case 1:
+                aud.clip = clips[1];
+                break;
+            case 2:
+                aud.clip = clips[2];
+                break;
+        }
+    }
 
 }

@@ -25,8 +25,10 @@ public class Wave : MonoBehaviour
     private int coinflip;
     private const int AlienCountInit = 40;
     private bool isboosted = false;
+    public AudioSource aud;
     void Start()
     {
+        aud = GetComponent<AudioSource>();
         direction = Vector2.right;
         tempSpeedTimer = speedTimer;
         wavemanager = FindObjectOfType<WaveManager>();
@@ -62,6 +64,10 @@ public class Wave : MonoBehaviour
 
     public void CreateWave()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
         float width = (columns - 1) * distance;
         float height = (rows - 1) * distance;
         Vector3 offset = new Vector3(width / 2f, height / 2f, 0);
@@ -99,6 +105,8 @@ public class Wave : MonoBehaviour
 
     public void moveFormationH()
     {
+        aud.pitch = Random.Range(0.95f, 1.05f);
+        aud.Play();
         transform.position += (Vector3)(direction * distance/2f);
         timer = tempSpeedTimer;
         return;
@@ -106,6 +114,7 @@ public class Wave : MonoBehaviour
 
     public void moveFormationV()
     {
+        aud.Play();
         transform.position -= new Vector3(0,distance/2f);
         needToDescend = false;
         timer = tempSpeedTimer;
@@ -120,6 +129,7 @@ public class Wave : MonoBehaviour
 
     public void resetWaveAtStart()
     {
+        aud.volume = 1f;
         int coinflip = Random.Range(0, 2);
         switch (coinflip)
         {
@@ -139,6 +149,7 @@ public class Wave : MonoBehaviour
             increaseDifficultyPerWave();
         }
         CreateWave();
+        UIManager.instance.UpdateWave(wavemanager.waveCount);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -210,7 +221,11 @@ public class Wave : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        wavemanager.waveEnded = false;
         transform.position = new Vector3(0, 15, 0);
+        tempSpeedTimer = speedTimer;
+        needToDescend = false;
+        isboosted = false;
         CreateWave();
     }
 }

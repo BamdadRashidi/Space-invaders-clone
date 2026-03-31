@@ -29,6 +29,7 @@ public class WaveManager : MonoBehaviour
 
         if (timer <= 0)
         {
+            wave.aud.volume = 0f;
             wave.resetWaveAtStart();
             timer = timerToNextWave;
         }
@@ -43,5 +44,10 @@ public class WaveManager : MonoBehaviour
     {
         highWave = waveCount;
         return;
+    }
+
+    public void ResetWaveNumber()
+    {
+        waveCount = 0;
     }
 }
