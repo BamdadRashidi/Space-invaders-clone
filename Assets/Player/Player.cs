@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     private ParticleSystem particles;
     private SpriteRenderer renderer;
     private AudioSource aud;
-    private int AudioCoinFlip;
     [SerializeField] private AudioClip[] clips; 
     void Start()
     {
@@ -53,9 +52,9 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
-        RollVolume();
-        aud.volume = 0.6f;
-        aud.pitch = Random.Range(0.9f, 1.1f);
+        aud.clip = clips[0];
+        aud.volume = 0.5f;
+        aud.pitch = Random.Range(0.95f, 1.05f);
         aud.Play();
         Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
     }
@@ -81,8 +80,8 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        aud.clip = clips[3];
-        aud.volume = 1f;
+        aud.clip = clips[1];
+        aud.volume = 0.8f;
         aud.pitch = Random.Range(0.9f, 1f);
         aud.Play();
         var main = particles.main;
@@ -93,22 +92,6 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.zero;
         this.enabled = false;
     }
-
-    private void RollVolume()
-    {
-        AudioCoinFlip = Random.Range(0, 3);
-        switch (AudioCoinFlip)
-        {
-            case 0:
-                aud.clip = clips[0];
-                break;
-            case 1:
-                aud.clip = clips[1];
-                break;
-            case 2:
-                aud.clip = clips[2];
-                break;
-        }
-    }
+    
 
 }

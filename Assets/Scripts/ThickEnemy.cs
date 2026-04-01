@@ -8,8 +8,8 @@ public class ThickEnemy : Enemy
     [SerializeField] private GameObject bullet;
     public override void shoot()
     {
-        aud.pitch = Random.Range(0.9f, 1.1f);
-        aud.volume = Random.Range(0.1f, 0.8f);
+        aud.volume = 0.5f;
+        aud.pitch = Random.Range(0.95f, 1.05f);
         aud.clip = clips[0];
         aud.Play();
         Instantiate(bullet, bulletSpawnPos.position, Quaternion.identity);

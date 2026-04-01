@@ -11,10 +11,10 @@ public class FollowEnemy : Enemy
     {
         if (!player.GetComponent<Player>().died)
         {
+            aud.volume = 0.5f;
             Vector2 aim = (player.transform.position - bulletSpawnPos.transform.position).normalized;
             float angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
-            aud.pitch = Random.Range(0.9f, 1.1f);
-            aud.volume = Random.Range(0.1f, 0.8f);
+            aud.pitch = Random.Range(0.95f, 1.05f);
             aud.clip = clips[0];
             aud.Play();
             GameObject b = Instantiate(bullet, bulletSpawnPos.position, Quaternion.Euler(0,0,angle - 90f));

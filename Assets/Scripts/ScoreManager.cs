@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
     private static int totalScore;
     private static int hi_score;
     private static string filePath;
-    
+    public int ScoreForThisWaveInit = 0;
     private void Awake()
     {
         totalScore = 0;
@@ -27,6 +27,16 @@ public class ScoreManager : MonoBehaviour
         LoadFromFile();
     }
 
+    public void FinalizeScore()
+    {
+        ScoreForThisWaveInit = totalScore;
+    }
+
+    public void ResetScoreBack()
+    {
+        totalScore = ScoreForThisWaveInit;
+        UIManager.instance.UpdateScore(totalScore);
+    }
     public void addScore(int ScoreValue)
     {
         totalScore += ScoreValue;

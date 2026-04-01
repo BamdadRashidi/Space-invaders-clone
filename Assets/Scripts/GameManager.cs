@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine("GameOverSequence");
         }
-        
+        ScoreManager.Instance.ResetScoreBack();
         player.resetPlayer();
         player.enabled = true;
         

@@ -29,6 +29,7 @@ public class WaveManager : MonoBehaviour
 
         if (timer <= 0)
         {
+            ScoreManager.Instance.FinalizeScore();
             wave.aud.volume = 0f;
             wave.resetWaveAtStart();
             timer = timerToNextWave;

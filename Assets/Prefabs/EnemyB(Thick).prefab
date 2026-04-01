@@ -117,7 +117,7 @@ MonoBehaviour:
   - {fileID: 1946669249, guid: 42cd2235d9121bc4c9fb77dbabd9cf21, type: 3}
   - {fileID: 386595984, guid: 42cd2235d9121bc4c9fb77dbabd9cf21, type: 3}
   clips:
-  - {fileID: 8300000, guid: c4858eef4acb3b54fa7d8f8da546d5d0, type: 3}
+  - {fileID: 8300000, guid: 46bc5d08559b9f14b8eda76924ba0f0f, type: 3}
   - {fileID: 8300000, guid: 3d0099f09d92ff0428c23ea48b124b1f, type: 3}
   bulletSpawnPos: {fileID: 4912885156542572359}
   bullet: {fileID: 2889823919466422368, guid: 5b8b4d43b82329643b29e6f3ff72b91c, type: 3}
@@ -5044,13 +5044,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 140
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
