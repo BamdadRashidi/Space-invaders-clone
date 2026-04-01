@@ -23,7 +23,7 @@ public class WaveManager : MonoBehaviour
     
     void Update()
     {
-        if (!waveEnded) return;
+        if (!waveEnded || LifeManager.isInDeathSequence) return;
 
         timer -= Time.deltaTime;
 
@@ -34,7 +34,7 @@ public class WaveManager : MonoBehaviour
             timer = timerToNextWave;
         }
 
-        if (player.died)
+        if (player.died && !waveEnded)
         {
             setHighestWave();
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,7 @@ public class Wave : MonoBehaviour
     public AudioSource aud;
     void Start()
     {
+        AlienCount = AlienCountInit;
         aud = GetComponent<AudioSource>();
         direction = Vector2.right;
         tempSpeedTimer = speedTimer;
@@ -98,7 +100,12 @@ public class Wave : MonoBehaviour
             }
         }
         AlienCount = transform.childCount;
-        wavemanager.waveEnded = false;
+        
+        if (AlienCount > AlienCountInit)
+        {
+            AlienCount = AlienCountInit;
+        }
+        
         if (!LifeManager.isInDeathSequence)
         {
             MakeEnemiesAggressive();
@@ -131,6 +138,7 @@ public class Wave : MonoBehaviour
 
     public void resetWaveAtStart()
     {
+        wavemanager.waveEnded = false;
         aud.volume = 0.25f;
         coinflip = Random.Range(0, 2);
         switch (coinflip)
@@ -146,10 +154,7 @@ public class Wave : MonoBehaviour
         wavemanager.waveCount++;
         this.transform.position = new Vector3(0,15,0);
         isboosted = false;
-        if (wavemanager.waveEnded)
-        {
-            increaseDifficultyPerWave();
-        }
+        increaseDifficultyPerWave();
         CreateWave();
         UIManager.instance.UpdateWave(wavemanager.waveCount);
     }
@@ -167,7 +172,8 @@ public class Wave : MonoBehaviour
     {
         AlienCount--;
         int aliensKilled = AlienCountInit - AlienCount;
-        if (AlienCount <= 0)
+        Debug.Log(AlienCount);
+        if (AlienCount <= 0 && !wavemanager.waveEnded)
         {
             wavemanager.waveEnded = true;
         }
@@ -223,19 +229,21 @@ public class Wave : MonoBehaviour
     public void ResetWaveAtDeath()
     {
         removeChildren();
-        wavemanager.waveEnded = false;
+        
         transform.position = new Vector3(0, 15, 0);
         tempSpeedTimer = speedTimer;
         needToDescend = false;
         isboosted = false;
+        AlienCount = AlienCountInit;
         CreateWave();
     }
 
     public void removeChildren()
     {
-        foreach (Transform child in transform)
+        for (int i = transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(child.gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
     }
+
 }

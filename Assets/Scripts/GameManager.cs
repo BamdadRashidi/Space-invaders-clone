@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     IEnumerator DeathSequence()
     {
         Time.timeScale = 0;
+        player.movementsrc.volume = 0;
         yield return new WaitForSecondsRealtime(1f);
         
         player.Die();
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
         int reachedWave = wm ? wm.waveCount : 1;
         ScoreManager.Instance.SaveToFile(reachedWave);
         wave.removeChildren();
+        DestroyAllBullets();
         UIManager.instance.GameOverText.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(3f);
         
@@ -111,13 +113,12 @@ public class GameManager : MonoBehaviour
         ScoreManager.Instance.ResetScoreBack();
         player.resetPlayer();
         player.enabled = true;
-        
         DestroyAllBullets();
         
         waveManager.ResetWaveState();
         wave.ResetWaveAtDeath();
+        LifeManager.isInDeathSequence = false;
         
         Time.timeScale = 1f;
-        LifeManager.isInDeathSequence = false;
     }
 }

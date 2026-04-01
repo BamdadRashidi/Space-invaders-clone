@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private AudioSource aud;
     [SerializeField] private AudioClip[] clips;
     [SerializeField] private GameObject movementAud;
-    private AudioSource movementsrc;
+    public AudioSource movementsrc;
     void Start()
     {
         initialPosition = new Vector3(0,-25,0);
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
         collider.enabled = true;
         renderer.enabled = true;
         died = false;
+        movementsrc.volume = 0.32f;
     }
 
 
