@@ -30,7 +30,6 @@ public class WaveManager : MonoBehaviour
         if (timer <= 0)
         {
             ScoreManager.Instance.FinalizeScore();
-            wave.aud.volume = 0f;
             wave.resetWaveAtStart();
             timer = timerToNextWave;
         }
@@ -44,11 +43,20 @@ public class WaveManager : MonoBehaviour
     private void setHighestWave()
     {
         highWave = waveCount;
+        UIManager.instance.UpdateWave(highWave);
         return;
     }
 
     public void ResetWaveNumber()
     {
-        waveCount = 0;
+        waveCount = 1;
+        UIManager.instance.UpdateWave(1);
     }
+    
+    public void ResetWaveState()
+    {
+        waveEnded = false;
+        timer = timerToNextWave;
+    }
+    
 }

@@ -44,4 +44,9 @@ public class UFOSpawner : MonoBehaviour
             CoinFlip = Random.Range(0, 2);
         }
     }
+
+    public void Reroll()
+    {
+        SpawnTimer = Random.Range(300,1200);
+    }
 }

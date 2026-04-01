@@ -13,6 +13,7 @@ public class ScoreManager : MonoBehaviour
     public int ScoreForThisWaveInit = 0;
     private void Awake()
     {
+        // ResetSave();
         totalScore = 0;
         filePath = Path.Combine(Application.persistentDataPath, "Save.json");
         if (Instance != null && Instance != this)
@@ -77,6 +78,13 @@ public class ScoreManager : MonoBehaviour
                 UIManager.instance.UpdateHighScore(hi_score);
             }
         }
+        else
+        {
+            if (UIManager.instance != null)
+            {
+                UIManager.instance.UpdateHighScore(0);
+            }
+        }
     }
     
     public void ResetSave()
@@ -91,6 +99,11 @@ public class ScoreManager : MonoBehaviour
     {
         totalScore = 0;
         UIManager.instance.UpdateScore(totalScore);
+    }
+
+    public int GetHighScore()
+    {
+        return hi_score;
     }
 }
 

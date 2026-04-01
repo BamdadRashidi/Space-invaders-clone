@@ -43,6 +43,11 @@ public class Wave : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
+            if (wavemanager.waveEnded)
+            {
+                aud.Stop();
+                return;
+            }
             if (!needToDescend)
             {
                 moveFormationH();
@@ -64,10 +69,7 @@ public class Wave : MonoBehaviour
 
     public void CreateWave()
     {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
+        removeChildren();
         float width = (columns - 1) * distance;
         float height = (rows - 1) * distance;
         Vector3 offset = new Vector3(width / 2f, height / 2f, 0);
@@ -129,8 +131,8 @@ public class Wave : MonoBehaviour
 
     public void resetWaveAtStart()
     {
-        aud.volume = 1f;
-        int coinflip = Random.Range(0, 2);
+        aud.volume = 0.25f;
+        coinflip = Random.Range(0, 2);
         switch (coinflip)
         {
             case 0:
@@ -179,7 +181,10 @@ public class Wave : MonoBehaviour
     public void increaseDifficultyPerWave()
     {
         speedTimer -= 0.1f;
-        speedTimer = Mathf.Max(speedTimer, 0.07f);
+        if (speedTimer <= 0.2f)
+        {
+            speedTimer = 0.12f;
+        }
         tempSpeedTimer = speedTimer;
     }
     private void ChangeSprite()
@@ -217,15 +222,20 @@ public class Wave : MonoBehaviour
 
     public void ResetWaveAtDeath()
     {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
+        removeChildren();
         wavemanager.waveEnded = false;
         transform.position = new Vector3(0, 15, 0);
         tempSpeedTimer = speedTimer;
         needToDescend = false;
         isboosted = false;
         CreateWave();
+    }
+
+    public void removeChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

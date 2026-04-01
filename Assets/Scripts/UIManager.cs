@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,8 +14,23 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI GameOverText;
     void Awake()
     {
-        GameOverText.enabled = false;
         instance = this;
+        if (GameOverText != null)
+        {
+            GameOverText = GameObject.Find("Game Over").GetComponent<TextMeshProUGUI>();
+        }
+        GameOverText.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        if (ScoreManager.Instance != null)
+        {
+            if (ScoreManager.Instance != null)
+            {
+                UpdateHighScore(ScoreManager.Instance.GetHighScore());
+            }
+        }
     }
 
     public void UpdateScore(int score)
@@ -22,9 +38,9 @@ public class UIManager : MonoBehaviour
         Score.text = "Score: " + score;
     }
 
-    public void UpdateHighScore(int Hiscore)
+    public void UpdateHighScore(int hiscore)
     {
-        HiScore.text = "Hi-Score: " + HiScore;
+        HiScore.text = "Hi-Score: " + hiscore;
     }
     
     public void UpdateWave(int wave)

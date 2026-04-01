@@ -21,7 +21,9 @@ public class Player : MonoBehaviour
     private ParticleSystem particles;
     private SpriteRenderer renderer;
     private AudioSource aud;
-    [SerializeField] private AudioClip[] clips; 
+    [SerializeField] private AudioClip[] clips;
+    [SerializeField] private GameObject movementAud;
+    private AudioSource movementsrc;
     void Start()
     {
         initialPosition = new Vector3(0,-25,0);
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
         particles = GetComponent<ParticleSystem>();
         renderer = GetComponent<SpriteRenderer>();
         aud = GetComponent<AudioSource>();
+        movementsrc = movementAud.GetComponent<AudioSource>();
     }
     
     void Update()
@@ -47,6 +50,19 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         float direction = Input.GetAxisRaw("Horizontal");
+        if (direction != 0)
+        {
+            if (!movementsrc.isPlaying)
+            {
+                movementsrc.pitch = Random.Range(0.95f, 1.05f);
+                movementsrc.Play();
+            }
+        }
+        else
+        {
+            if (movementsrc.isPlaying)
+                movementsrc.Stop();
+        }
         rb.velocity = new Vector2(direction * speed, rb.velocity.y);
     }
 

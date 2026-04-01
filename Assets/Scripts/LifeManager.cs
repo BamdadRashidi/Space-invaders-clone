@@ -50,5 +50,6 @@ public class LifeManager : MonoBehaviour
     public void ResetLives()
     {
         lives = 3;
+        UIManager.instance.UpdateLives(lives);
     }
 }

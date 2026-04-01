@@ -48,17 +48,9 @@ public class GameManager : MonoBehaviour
         if (LifeManager.isGameOvered)
         {
             StartCoroutine("GameOverSequence");
+            yield break;
         }
-        ScoreManager.Instance.ResetScoreBack();
-        player.resetPlayer();
-        player.enabled = true;
-        
-        DestroyAllBullets();
-        Reset();
-        
-        Time.timeScale = 1f;
-        UIManager.instance.GameOverText.enabled = false;
-        LifeManager.isInDeathSequence = false;
+        GeneralReset();
     }
 
     private void Update()
@@ -76,11 +68,6 @@ public class GameManager : MonoBehaviour
             isPaused = false;
             player.GetComponent<Player>().enabled = true;
         }
-    }
-
-    public void Reset()
-    {
-        wave.ResetWaveAtDeath();
     }
     
     void DestroyAllBullets()
@@ -101,16 +88,36 @@ public class GameManager : MonoBehaviour
         WaveManager wm = FindObjectOfType<WaveManager>();
         int reachedWave = wm ? wm.waveCount : 1;
         ScoreManager.Instance.SaveToFile(reachedWave);
-        
-        UIManager.instance.GameOverText.enabled = true;
-        
+        wave.removeChildren();
+        UIManager.instance.GameOverText.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(3f);
         
         // reset everything
+        lifemanager.ResetLives();
+        waveManager.ResetWaveNumber();
+        waveManager.ResetWaveState();
+        ScoreManager.Instance.ResetScore();
+        UFOSpawner.instance.Reroll();
+        GeneralReset();
         waveManager.ResetWaveNumber();
         ScoreManager.Instance.ResetScore();
-        lifemanager.ResetLives();
+        UIManager.instance.GameOverText.gameObject.SetActive(false);
         Time.timeScale = 1f;
     }
-    
+
+
+    void GeneralReset()
+    {
+        ScoreManager.Instance.ResetScoreBack();
+        player.resetPlayer();
+        player.enabled = true;
+        
+        DestroyAllBullets();
+        
+        waveManager.ResetWaveState();
+        wave.ResetWaveAtDeath();
+        
+        Time.timeScale = 1f;
+        LifeManager.isInDeathSequence = false;
+    }
 }
