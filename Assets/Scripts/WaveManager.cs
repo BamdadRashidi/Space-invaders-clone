@@ -12,6 +12,7 @@ public class WaveManager : MonoBehaviour
     private float timer;
     public Wave wave;
     public bool waveEnded;
+    private int state = 5; // 5
     void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -37,6 +38,13 @@ public class WaveManager : MonoBehaviour
         if (player.died && !waveEnded)
         {
             setHighestWave();
+        }
+
+        if (state == waveCount)
+        {
+            LifeManager.Instance.lives += 2;
+            UIManager.instance.UpdateLives(LifeManager.Instance.lives);
+            state += 5;
         }
     }
 

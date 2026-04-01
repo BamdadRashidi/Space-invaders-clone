@@ -10,7 +10,7 @@ public class UFO : Enemy
     private float speedTimer;
     private int speed; 
     private Vector2 movementdir;
-    private int[] speedValues = { 101, 75, 110, 140, 36, 200, 121, 26, 69, 143, 158, 231, 133, 67, 164, 420 };
+    private int[] speedValues = { 101, 75, 115, 130, 36, 132, 135, 26, 69, 143, 150, 142, 138, 67, 164, 420 };
     private UFOSpawner spawner;
     private WaveManager waveM;
     public static UFO instance { get; private set; }
@@ -21,6 +21,7 @@ public class UFO : Enemy
     
     void Start()
     {
+        anim.Play("UFO");
         waveM = FindObjectOfType<WaveManager>();
         if (instance != null && instance != this)
         {

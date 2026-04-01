@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bfebc42d45d05409edb15754cf3e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 8
+  HP: 7
   firstOfRange: 0
   lastOfRange: 0
   firstOfRangeinit: 0

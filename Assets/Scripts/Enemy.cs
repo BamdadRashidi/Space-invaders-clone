@@ -81,6 +81,11 @@ public abstract class Enemy : MonoBehaviour
             renderer.enabled = false;
             Destroy(gameObject,0.3f);
         }
+        if (this is UFO)
+        {
+            LifeManager.Instance.lives += 5;
+            UIManager.instance.UpdateLives(LifeManager.Instance.lives);
+        }
     }
 
     public void flipSprite()

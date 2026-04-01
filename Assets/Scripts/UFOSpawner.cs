@@ -16,7 +16,7 @@ public class UFOSpawner : MonoBehaviour
     {
         CoinFlip = Random.Range(0, 2);
         waveManager = FindObjectOfType<WaveManager>();
-        SpawnTimer = Random.Range(300,1200); // 300,1200
+        SpawnTimer = Random.Range(1,2); // 300,1200
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
