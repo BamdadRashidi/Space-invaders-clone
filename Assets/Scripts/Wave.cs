@@ -152,7 +152,7 @@ public class Wave : MonoBehaviour
         }
         needToDescend = false;
         wavemanager.waveCount++;
-        this.transform.position = new Vector3(0,15,0);
+        this.transform.position = new Vector3(0,17,0);
         isboosted = false;
         increaseDifficultyPerWave();
         CreateWave();
@@ -230,7 +230,7 @@ public class Wave : MonoBehaviour
     {
         removeChildren();
         
-        transform.position = new Vector3(0, 15, 0);
+        transform.position = new Vector3(0, 17, 0);
         tempSpeedTimer = speedTimer;
         needToDescend = false;
         isboosted = false;

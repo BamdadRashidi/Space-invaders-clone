@@ -6,7 +6,6 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Player : MonoBehaviour
-
 {
     private Vector2 direction = Vector2.zero;
     private Vector2 initialPosition;
@@ -24,8 +23,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip[] clips;
     [SerializeField] private GameObject movementAud;
     public AudioSource movementsrc;
+    private ParticleSystem muzzlePart;
     void Start()
     {
+        muzzlePart = movementAud.GetComponent<ParticleSystem>();
         initialPosition = new Vector3(0,-25,0);
         died = false;
         timerCounter = fireRate;
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        muzzlePart.Play();
         aud.clip = clips[0];
         aud.volume = 0.5f;
         aud.pitch = Random.Range(0.95f, 1.05f);
@@ -81,7 +83,7 @@ public class Player : MonoBehaviour
             other.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
             died = true;
-            Destroy(other.gameObject);
+            Destroy(other.gameObject,0.2f);
         }
     }
     
@@ -97,6 +99,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
+        muzzlePart.Stop();
         aud.clip = clips[1];
         aud.volume = 0.8f;
         aud.pitch = Random.Range(0.9f, 1f);
