@@ -29,6 +29,7 @@ public abstract class Enemy : MonoBehaviour
         firstOfRangeinit = firstOfRange;
         lastOfRangeinit = lastOfRange;
         anim = GetComponent<Animator>();
+        anim.enabled = false;
         collider = GetComponent<BoxCollider2D>();
         renderer = GetComponent<SpriteRenderer>();
         particle = GetComponent<ParticleSystem>();
@@ -37,7 +38,6 @@ public abstract class Enemy : MonoBehaviour
         {
             renderer.sprite = sprites[0];
         }
-        anim.enabled = false;
     }
 
     public abstract void shoot();
@@ -56,6 +56,17 @@ public abstract class Enemy : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
+            anim.enabled = true;
+
+            if (this is ThinEnem)
+                anim.Play("ThinEnemy",0,0f);
+            else if (this is ThickEnemy)
+                anim.Play("ThickEnemy",0,0f);
+            else if (this is FollowEnemy)
+                anim.Play("FollowEnemy",0,0f);
+            else if (this is UFO)
+                anim.Play("UFO_Hurt",0,0f);
+            
             takeDamage(1);
             Destroy(other.gameObject);
         }

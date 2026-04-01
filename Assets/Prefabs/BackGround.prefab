@@ -304,7 +304,7 @@ MonoBehaviour:
   - {fileID: 5102248038721961175}
   - {fileID: 5102248036886174543}
   - {fileID: 5102248037436080567}
-  scrollSpeed: 25
+  scrollSpeed: 50
   lowerBgLimit: 128
 --- !u!1 &9154317768101242061
 GameObject:
