@@ -65,6 +65,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 257cbd9db0b870941adaf4792973fb7f, type: 3}
   - {fileID: 8300000, guid: 27b6e0fa0c6f8d847822bd75ffd2c02a, type: 3}
+  aud: {fileID: 0}
   shatterParticle: {fileID: 7251754672857045381}
 --- !u!95 &-919455674710884951
 Animator:
@@ -5033,7 +5034,7 @@ AudioSource:
   m_GameObject: {fileID: 1541146215956225294}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6809912829343110890, guid: 692a4816351cc4d47a41fb813d09424b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

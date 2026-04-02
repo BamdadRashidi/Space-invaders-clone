@@ -88,6 +88,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 46bc5d08559b9f14b8eda76924ba0f0f, type: 3}
   - {fileID: 8300000, guid: 3d0099f09d92ff0428c23ea48b124b1f, type: 3}
+  aud: {fileID: 0}
   bulletSpawnPos: {fileID: 696845287841920497}
   bullet: {fileID: 4984346322675159516, guid: 5365794499baf4e48b1b305051e7ff1a, type: 3}
   player: {fileID: 3723332388307438807, guid: 93780215ec782e245b3f543c10043b4b, type: 3}
@@ -5011,7 +5012,7 @@ AudioSource:
   m_GameObject: {fileID: 696845286272251578}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6809912829343110890, guid: 692a4816351cc4d47a41fb813d09424b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5

@@ -49,7 +49,10 @@ public class GameManager : MonoBehaviour
         
         Time.timeScale = 0;
         player.movementsrc.volume = 0;
-        UFO.instance.aud.volume = 0;
+        if (UFO.instance != null)
+        {
+            UFO.instance.aud.volume = 0;
+        }
         yield return new WaitForSecondsRealtime(2f);
         
         player.Die();
@@ -76,14 +79,20 @@ public class GameManager : MonoBehaviour
                 isPaused = true;
                 player.GetComponent<Player>().enabled = false;
                 player.movementsrc.Stop();
-                UFO.instance.aud.volume = 0;
+                if (UFO.instance != null)
+                {
+                    UFO.instance.aud.volume = 0;
+                }
             }
             else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
             {
                 Time.timeScale = 1;
                 isPaused = false;
                 player.GetComponent<Player>().enabled = true;
-                UFO.instance.aud.volume = 0.5f;
+                if (UFO.instance != null)
+                {
+                    UFO.instance.aud.volume = 0.5f;
+                }
             }
         }
     }
@@ -140,6 +149,9 @@ public class GameManager : MonoBehaviour
         LifeManager.isInDeathSequence = false;
         LifeManager.isGameOvered = false;
         Time.timeScale = 1f;
-        UFO.instance.aud.volume = 0.5f;
+        if (UFO.instance != null)
+        {
+            UFO.instance.aud.volume = 0.5f;
+        }
     }
 }
