@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerToNextWave: 3
+  bunkers: {fileID: 1844798114414812759, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
   waveCount: 0
   wave: {fileID: 1065989330627814471, guid: fc98e1911652a0f43bbb9fa1a826df19, type: 3}
   waveEnded: 0

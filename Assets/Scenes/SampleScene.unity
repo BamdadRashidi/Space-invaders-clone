@@ -2000,11 +2000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1844798114414812758, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.663242
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1844798114414812758, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.9909363
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 1844798114414812758, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2041,6 +2041,18 @@ PrefabInstance:
     - target: {fileID: 1844798114414812759, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
       propertyPath: m_Name
       value: Bunkers
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265081983279318696, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265081984124922063, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
+      propertyPath: HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2265081984664432178, guid: 233588fdac5b38d4abf69334e6de7a02, type: 3}
+      propertyPath: HP
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

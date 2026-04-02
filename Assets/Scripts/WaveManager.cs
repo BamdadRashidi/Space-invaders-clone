@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField] private float timerToNextWave;
+    [SerializeField] private GameObject bunkers;
     private Player player;
     public int waveCount;
     private int highWave;
     private float timer;
     public Wave wave;
     public bool waveEnded;
-    private int state = 5; // 5
+    private int state = 5; 
     void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -42,9 +44,14 @@ public class WaveManager : MonoBehaviour
 
         if (state == waveCount)
         {
+            GameObject[] ExistingBunkers = GameObject.FindGameObjectsWithTag("Bunker");
+            if (ExistingBunkers.Length == 0)
+            {
+                Instantiate(bunkers, new Vector3(11,-8,0.2f),Quaternion.identity);
+            }
             LifeManager.Instance.lives += 2;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
-            state += 5;
+            state += 5; 
         }
     }
 
