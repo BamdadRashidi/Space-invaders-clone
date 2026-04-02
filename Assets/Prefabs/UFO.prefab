@@ -57,7 +57,7 @@ MonoBehaviour:
   lastOfRangeinit: 0
   sprites: []
   clips:
-  - {fileID: 8300000, guid: af2fb404d789401489f472bbf3a246d6, type: 3}
+  - {fileID: 8300000, guid: 8b1859b22a29b504eb2bcfc7b18f303c, type: 3}
   - {fileID: 8300000, guid: 02028606ca16b644a960d8b47576d3b9, type: 3}
 --- !u!61 &2515132892946877843
 BoxCollider2D:

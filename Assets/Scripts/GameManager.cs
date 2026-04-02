@@ -16,8 +16,10 @@ public class GameManager : MonoBehaviour
     private GameObject[] Bullets;
     private bool isPaused = false;
     [SerializeField] private GameObject whiteFlash;
+    [SerializeField] private Camera cam;
     void Start()
     {
+        cam.GetComponent<Animator>().enabled = false;
         waveManager = FindObjectOfType<WaveManager>();
         wave = FindObjectOfType<Wave>();
         player = FindObjectOfType<Player>();
@@ -49,6 +51,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         
         player.Die();
+        cam.GetComponent<Animator>().enabled = true;
+        cam.GetComponent<Animator>().Play("CameraShake",0,0f);
         yield return new WaitForSecondsRealtime(2f);
         
         if (LifeManager.isGameOvered)
