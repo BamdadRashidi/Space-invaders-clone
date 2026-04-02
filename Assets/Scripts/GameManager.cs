@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private ScoreManager ScoreManager;
     private GameObject[] Bullets;
     private bool isPaused = false;
+    [SerializeField] private GameObject whiteFlash;
     void Start()
     {
         waveManager = FindObjectOfType<WaveManager>();
@@ -30,10 +31,14 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+        whiteFlash.GetComponent<Animator>().enabled = false;  
     }
     
     public void StartDeathSequence()
     {
+        whiteFlash.GetComponent<Animator>().enabled = true;  
+        whiteFlash.GetComponent<Animator>().Play("whiteFlash",0,0f);
+        whiteFlash.GetComponent<AudioSource>().Play();
         StartCoroutine(DeathSequence());
     }
 
@@ -41,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         player.movementsrc.volume = 0;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2f);
         
         player.Die();
         yield return new WaitForSecondsRealtime(2f);

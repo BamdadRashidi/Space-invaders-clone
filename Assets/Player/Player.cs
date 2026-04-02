@@ -100,9 +100,9 @@ public class Player : MonoBehaviour
     public void Die()
     {
         muzzlePart.Stop();
+        aud.pitch = 0.6f;
         aud.clip = clips[1];
         aud.volume = 0.8f;
-        aud.pitch = Random.Range(0.9f, 1f);
         aud.Play();
         var main = particles.main;
         main.useUnscaledTime = true;
