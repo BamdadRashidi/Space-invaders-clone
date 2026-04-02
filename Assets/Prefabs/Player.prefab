@@ -91,7 +91,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 248357076}
   died: 0
   clips:
-  - {fileID: 8300000, guid: febefc1cb91ba594d8b9ff395fd9b543, type: 3}
+  - {fileID: 8300000, guid: ecd7478843dc1e54dbc19d225a05af11, type: 3}
   - {fileID: 8300000, guid: a5985477825ea3248b598ab10e719411, type: 3}
   movementAud: {fileID: 8971430754749570344}
   movementsrc: {fileID: 0}
