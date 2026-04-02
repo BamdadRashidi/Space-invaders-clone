@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 public class ScoreManager : MonoBehaviour
@@ -57,34 +58,41 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveToFile(int highestWave)
     {
-        SaveEntity saveEntity = new SaveEntity()
-        {
-            highScore = hi_score,
-            highestWave = highestWave
-        };
-        string json = JsonUtility.ToJson(saveEntity,true);
-        File.WriteAllText(filePath, json);
-    }
+        int savedWave = 0;
 
-    public void LoadFromFile()
-    {
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
             SaveEntity data = JsonUtility.FromJson<SaveEntity>(json);
+            savedWave = data.highestWave;
+        }
+
+        SaveEntity saveEntity = new SaveEntity()
+        {
+            highScore = hi_score,
+            highestWave = Mathf.Max(savedWave, highestWave)
+        };
+
+        string jsonSave = JsonUtility.ToJson(saveEntity, true);
+        File.WriteAllText(filePath, jsonSave);
+    }
+
+
+    public SaveEntity LoadFromFile()
+    {
+        SaveEntity data;
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            data = JsonUtility.FromJson<SaveEntity>(json);
             hi_score = data.highScore;
             if (UIManager.instance != null)
             {
                 UIManager.instance.UpdateHighScore(hi_score);
             }
+            return data;
         }
-        else
-        {
-            if (UIManager.instance != null)
-            {
-                UIManager.instance.UpdateHighScore(0);
-            }
-        }
+        return new SaveEntity();
     }
     
     public void ResetSave()
@@ -105,6 +113,12 @@ public class ScoreManager : MonoBehaviour
     {
         return hi_score;
     }
+
+    public int GetTotalScore()
+    {
+        return totalScore;
+    }
+    
 }
 
 [System.Serializable]

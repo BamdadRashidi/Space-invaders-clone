@@ -46,8 +46,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator DeathSequence()
     {
+        
         Time.timeScale = 0;
         player.movementsrc.volume = 0;
+        UFO.instance.aud.volume = 0;
         yield return new WaitForSecondsRealtime(2f);
         
         player.Die();
@@ -66,17 +68,23 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         //Pausing
-        if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
+        if (!LifeManager.isInDeathSequence)
         {
-            Time.timeScale = 0;
-            isPaused = true;
-            player.GetComponent<Player>().enabled = false;
-        }
-        else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
-        {
-            Time.timeScale = 1;
-            isPaused = false;
-            player.GetComponent<Player>().enabled = true;
+            if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
+            {
+                Time.timeScale = 0;
+                isPaused = true;
+                player.GetComponent<Player>().enabled = false;
+                player.movementsrc.Stop();
+                UFO.instance.aud.volume = 0;
+            }
+            else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
+            {
+                Time.timeScale = 1;
+                isPaused = false;
+                player.GetComponent<Player>().enabled = true;
+                UFO.instance.aud.volume = 0.5f;
+            }
         }
     }
     
@@ -96,12 +104,15 @@ public class GameManager : MonoBehaviour
     {
         ScoreManager.Instance.setHighScore();
         WaveManager wm = FindObjectOfType<WaveManager>();
-        int reachedWave = wm ? wm.waveCount : 1;
-        ScoreManager.Instance.SaveToFile(reachedWave);
+        waveManager.setHighestWave();
+        waveManager.RemoveBunkers();
+        ScoreManager.Instance.SaveToFile(waveManager.getHighestWave());
         wave.removeChildren();
+        waveManager.RemoveBunkers();
         DestroyAllBullets();
-        UIManager.instance.GameOverText.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(3f);
+        UIManager.instance.GameOverPanel.SetActive(true);
+        UIManager.instance.UpdateGameOver(ScoreManager.Instance.GetTotalScore(),waveManager.waveCount);
+        yield return new WaitForSecondsRealtime(5f);
         
         // reset everything
         lifemanager.ResetLives();
@@ -112,7 +123,7 @@ public class GameManager : MonoBehaviour
         GeneralReset();
         waveManager.ResetWaveNumber();
         ScoreManager.Instance.ResetScore();
-        UIManager.instance.GameOverText.gameObject.SetActive(false);
+        UIManager.instance.GameOverPanel.SetActive(false);
         Time.timeScale = 1f;
     }
 
@@ -123,11 +134,12 @@ public class GameManager : MonoBehaviour
         player.resetPlayer();
         player.enabled = true;
         DestroyAllBullets();
-        
         waveManager.ResetWaveState();
+        waveManager.CreateBunkers();
         wave.ResetWaveAtDeath();
         LifeManager.isInDeathSequence = false;
-        
+        LifeManager.isGameOvered = false;
         Time.timeScale = 1f;
+        UFO.instance.aud.volume = 0.5f;
     }
 }

@@ -22,7 +22,7 @@ public abstract class Enemy : MonoBehaviour
     protected int[] scores = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000};
     [SerializeField] protected Sprite[] sprites;
     [SerializeField] protected AudioClip[] clips;
-    protected AudioSource aud;
+    public AudioSource aud;
     public void Awake()
     {
         aud = GetComponent<AudioSource>();

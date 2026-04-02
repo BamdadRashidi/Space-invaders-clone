@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -23,7 +24,13 @@ public class WaveManager : MonoBehaviour
         timer = timerToNextWave;
         waveCount = 1;
     }
-    
+
+    private void Start()
+    {
+        SaveEntity data = ScoreManager.Instance.LoadFromFile();
+        highWave = data.highestWave;
+    }
+
     void Update()
     {
         if (!waveEnded || LifeManager.isInDeathSequence) return;
@@ -44,20 +51,18 @@ public class WaveManager : MonoBehaviour
 
         if (state == waveCount)
         {
-            GameObject[] ExistingBunkers = GameObject.FindGameObjectsWithTag("Bunker");
-            if (ExistingBunkers.Length == 0)
-            {
-                Instantiate(bunkers, new Vector3(11,-8,0.2f),Quaternion.identity);
-            }
             LifeManager.Instance.lives += 2;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
             state += 5; 
         }
     }
 
-    private void setHighestWave()
+    public void setHighestWave()
     {
-        highWave = waveCount;
+        if (highWave < waveCount)
+        {
+            highWave = waveCount;
+        }
         UIManager.instance.UpdateWave(highWave);
         return;
     }
@@ -72,6 +77,29 @@ public class WaveManager : MonoBehaviour
     {
         waveEnded = false;
         timer = timerToNextWave;
+    }
+
+    public void RemoveBunkers()
+    {
+        GameObject[] existingBunkers = GameObject.FindGameObjectsWithTag("Bunker");
+        foreach (GameObject bunker in existingBunkers)
+        {
+            Destroy(bunker);
+        }
+    }
+
+    public void CreateBunkers()
+    {
+        GameObject[] ExistingBunkers = GameObject.FindGameObjectsWithTag("Bunker");
+        if (ExistingBunkers.Length == 0)
+        {
+            Instantiate(bunkers, new Vector3(11,-8,0.2f),Quaternion.identity);
+        }
+    }
+
+    public int getHighestWave()
+    {
+        return highWave;
     }
     
 }

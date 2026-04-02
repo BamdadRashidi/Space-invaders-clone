@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using System.IO;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
@@ -11,19 +11,21 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI HiScore;
     public TextMeshProUGUI Wave;
     public TextMeshProUGUI LiveCount;
-    public TextMeshProUGUI GameOverText;
+    public GameObject GameOverPanel;
+    public TextMeshProUGUI ScoreTextGO;
+    public TextMeshProUGUI HiScoreTextGo;
+    public TextMeshProUGUI WaveTextGo;
+    public TextMeshProUGUI HiWaveTextGo;
+    private static string filePath;
     void Awake()
     {
         instance = this;
-        if (GameOverText != null)
-        {
-            GameOverText = GameObject.Find("Game Over").GetComponent<TextMeshProUGUI>();
-        }
-        GameOverText.gameObject.SetActive(false);
+        GameOverPanel.SetActive(false);
     }
 
     private void Start()
     {
+        filePath = Path.Combine(Application.persistentDataPath, "Save.json");
         if (ScoreManager.Instance != null)
         {
             if (ScoreManager.Instance != null)
@@ -51,5 +53,15 @@ public class UIManager : MonoBehaviour
     public void UpdateLives(int life)
     {
         LiveCount.text = "Lives: " + life;
+    }
+
+    public void UpdateGameOver(int score, int waves)
+    {
+        ScoreTextGO.text = "Total score: " + score;
+        WaveTextGo.text = "Wave reached: " + waves;
+        string json = File.ReadAllText(filePath);
+        SaveEntity data = JsonUtility.FromJson<SaveEntity>(json);
+        HiScoreTextGo.text = "Hi-Score: " + data.highScore;
+        HiWaveTextGo.text = "Highest wave: " + data.highestWave;
     }
 }
