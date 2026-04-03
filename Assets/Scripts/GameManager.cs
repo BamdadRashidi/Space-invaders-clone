@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         
         Time.timeScale = 0;
+        MusicManager.instance.PauseTrack();
         player.movementsrc.volume = 0;
         if (UFO.instance != null)
         {
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     void GeneralReset()
     {
+        MusicManager.instance.ResumeTrack();    
         ScoreManager.Instance.ResetScoreBack();
         player.resetPlayer();
         player.enabled = true;

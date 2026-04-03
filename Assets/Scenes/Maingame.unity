@@ -385,6 +385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WaveManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5939889709209559585, guid: 5d696d9e5e22588478bffdc6ded7f9b3, type: 3}
+      propertyPath: timerToNextWave
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d696d9e5e22588478bffdc6ded7f9b3, type: 3}
@@ -1096,6 +1100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wave
       objectReference: {fileID: 0}
+    - target: {fileID: 1065989330627814471, guid: fc98e1911652a0f43bbb9fa1a826df19, type: 3}
+      propertyPath: speedTimer
+      value: 1.83
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: fc98e1911652a0f43bbb9fa1a826df19, type: 3}
@@ -1290,7 +1298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.078431375}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.047058824}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

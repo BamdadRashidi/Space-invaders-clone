@@ -163,7 +163,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6, y: 6}
+  m_Size: {x: 6.3, y: 6}
   m_EdgeRadius: 0
 --- !u!198 &-5888081965227067994
 ParticleSystem:

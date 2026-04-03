@@ -176,6 +176,7 @@ public class Wave : MonoBehaviour
         if (AlienCount <= 0 && !wavemanager.waveEnded)
         {
             wavemanager.waveEnded = true;
+            MusicManager.instance.PlayVictory();
         }
         if (AlienCount != 0)
         {

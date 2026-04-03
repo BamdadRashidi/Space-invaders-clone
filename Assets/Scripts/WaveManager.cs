@@ -39,6 +39,7 @@ public class WaveManager : MonoBehaviour
 
         if (timer <= 0)
         {
+            MusicManager.instance.PlayMusicForScene(SceneManager.GetActiveScene().name);
             ScoreManager.Instance.FinalizeScore();
             wave.resetWaveAtStart();
             timer = timerToNextWave;

@@ -54,7 +54,7 @@ MonoBehaviour:
   rows: 5
   columns: 8
   distance: 6
-  speedTimer: 1.53
+  speedTimer: 1.83
   AlienCount: 0
   tempSpeedTimer: 0
   aud: {fileID: 0}
