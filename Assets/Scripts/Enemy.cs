@@ -57,7 +57,12 @@ public abstract class Enemy : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Bullet"))
         {
             anim.enabled = true;
-
+            if (this.HP > 1)
+            {
+                aud.clip = clips[2];
+                aud.pitch = Random.Range(0.97f, 1.03f);
+                aud.Play();
+            }
             if (this is ThinEnem)
                 anim.Play("ThinEnemy",0,0f);
             else if (this is ThickEnemy)

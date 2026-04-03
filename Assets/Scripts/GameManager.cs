@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
         whiteFlash.GetComponent<Animator>().enabled = false;  
     }
@@ -76,6 +75,7 @@ public class GameManager : MonoBehaviour
         {
             if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
             {
+                PauseMenuManager.instance.ActivatePause();
                 Time.timeScale = 0;
                 isPaused = true;
                 player.GetComponent<Player>().enabled = false;
@@ -85,15 +85,9 @@ public class GameManager : MonoBehaviour
                     UFO.instance.aud.volume = 0;
                 }
             }
-            else if (isPaused && Input.GetKeyDown(KeyCode.Escape))
+            else if (isPaused && (Input.GetKeyDown(KeyCode.Escape) || PauseMenuManager.instance.resumed))
             {
-                Time.timeScale = 1;
-                isPaused = false;
-                player.GetComponent<Player>().enabled = true;
-                if (UFO.instance != null)
-                {
-                    UFO.instance.aud.volume = 0.5f;
-                }
+                UnPause();
             }
         }
     }
@@ -136,7 +130,22 @@ public class GameManager : MonoBehaviour
         UIManager.instance.GameOverPanel.SetActive(false);
         Time.timeScale = 1f;
     }
-
+    
+    public void UnPause()
+    {
+        // TODO: Fix player becoming paralyzed
+        Time.timeScale = 1;
+        isPaused = false;
+        PauseMenuManager.instance.Resume();
+        if (player != null)
+        {
+            player.GetComponent<Player>().enabled = true;
+        }
+        if (UFO.instance != null)
+        {
+            UFO.instance.aud.volume = 0.5f;
+        }
+    }
 
     void GeneralReset()
     {

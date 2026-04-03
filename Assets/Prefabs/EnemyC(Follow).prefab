@@ -88,6 +88,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: 46bc5d08559b9f14b8eda76924ba0f0f, type: 3}
   - {fileID: 8300000, guid: 3d0099f09d92ff0428c23ea48b124b1f, type: 3}
+  - {fileID: 8300000, guid: 092fcdc1688d93343af2e526aa8f6de4, type: 3}
   aud: {fileID: 0}
   bulletSpawnPos: {fileID: 696845287841920497}
   bullet: {fileID: 4984346322675159516, guid: 5365794499baf4e48b1b305051e7ff1a, type: 3}
