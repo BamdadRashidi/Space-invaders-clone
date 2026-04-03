@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 3
-  firstOfRange: 9
-  lastOfRange: 15
+  firstOfRange: 8
+  lastOfRange: 14
   firstOfRangeinit: 0
   lastOfRangeinit: 0
   sprites:

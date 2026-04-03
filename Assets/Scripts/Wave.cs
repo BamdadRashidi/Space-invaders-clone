@@ -62,7 +62,7 @@ public class Wave : MonoBehaviour
             ChangeSprite();
         }
 
-        if (transform.childCount <= Mathf.Ceil(0.4f * AlienCountInit) && !isboosted)
+        if (transform.childCount <= Mathf.Floor(0.3f * AlienCountInit) && !isboosted)
         {
             Debug.Log("Boosted");
             BoostAliens();
@@ -180,7 +180,7 @@ public class Wave : MonoBehaviour
         }
         if (AlienCount != 0)
         {
-            tempSpeedTimer = speedTimer - (0.03f * aliensKilled);
+            tempSpeedTimer = speedTimer - (0.015f * aliensKilled);
             tempSpeedTimer = Mathf.Max(tempSpeedTimer, 0.07f);
         }
     }
@@ -190,7 +190,7 @@ public class Wave : MonoBehaviour
         speedTimer -= 0.1f;
         if (speedTimer <= 0.2f)
         {
-            speedTimer = 0.12f;
+            speedTimer = 0.2f;
         }
         tempSpeedTimer = speedTimer;
     }
@@ -219,10 +219,10 @@ public class Wave : MonoBehaviour
         foreach (Transform child in transform)
         {
             Enemy childScript = child.gameObject.GetComponent<Enemy>();
-            childScript.firstOfRange -= Mathf.Floor(childScript.firstOfRange * 0.45f);
-            childScript.lastOfRange -= Mathf.Floor(childScript.lastOfRange * 0.45f);
-            childScript.firstOfRange = Mathf.Max(childScript.firstOfRange, 0.25f);
-            childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.25f);
+            childScript.firstOfRange -= Mathf.Floor(childScript.firstOfRange * 0.25f);
+            childScript.lastOfRange -= Mathf.Floor(childScript.lastOfRange * 0.25f);
+            childScript.firstOfRange = Mathf.Max(childScript.firstOfRange, 0.2f);
+            childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.2f);
         }
         isboosted = true;
     }
