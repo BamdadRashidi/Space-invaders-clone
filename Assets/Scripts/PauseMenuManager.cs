@@ -32,6 +32,18 @@ public class PauseMenuManager : MonoBehaviour
     {
         filePath = Path.Combine(Application.persistentDataPath, "Options.json");
         LoadOptions();
+        if (masterSlide.value == 0)
+        {
+            mixer.SetFloat("MasterVolume", Mathf.Log10(masterSlide.maxValue) * 20);
+        }
+        if (musicSlide.value == 0)
+        {
+            mixer.SetFloat("MusicVolume", Mathf.Log10(musicSlide.maxValue) * 20);
+        }
+        if (SFXslide.value == 0)
+        {
+            mixer.SetFloat("SFXVolume", Mathf.Log10(SFXslide.maxValue) * 20);
+        }
         PauseMenu.SetActive(false);
         OptionsMenu.SetActive(false);
     }
