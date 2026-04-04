@@ -11,6 +11,7 @@ public class MusicManager : MonoBehaviour
     private AudioSource musicSource;
     private AudioSource sfxSource;
 
+    private float initMusicVol;
     public static MusicManager instance;
 
     private void Awake()
@@ -28,9 +29,10 @@ public class MusicManager : MonoBehaviour
     void Start()
     {
         AudioSource[] sources = GetComponents<AudioSource>();
-
+        
         musicSource = sources[0];
         sfxSource = sources[1];
+        initMusicVol = musicSource.volume;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -66,6 +68,16 @@ public class MusicManager : MonoBehaviour
     public void PlayVictory()
     {
         StartCoroutine(VictoryRoutine());
+    }
+
+    public void reduceMusicVolumePause()
+    {
+        musicSource.volume = Mathf.MoveTowards(musicSource.volume, musicSource.volume - 0.2f, 0.7f);
+    }
+
+    public void increaseMusicVolumePause()
+    {
+        musicSource.volume = Mathf.MoveTowards(musicSource.volume, initMusicVol, 0.7f);
     }
 
     private IEnumerator VictoryRoutine()

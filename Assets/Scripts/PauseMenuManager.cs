@@ -13,12 +13,14 @@ public class PauseMenuManager : MonoBehaviour
     
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject OptionsMenu;
+    [SerializeField] private GameObject sureMenu;
     [SerializeField] private UnityEngine.UI.Toggle vsyncToggle;
     [SerializeField] private TMP_Dropdown screenModeDD;
     [SerializeField] private UnityEngine.UI.Slider masterSlide;
     [SerializeField] private UnityEngine.UI.Slider musicSlide;
     [SerializeField] private UnityEngine.UI.Slider SFXslide;
-    
+    [SerializeField] private UnityEngine.UI.Button yes;
+    [SerializeField] private UnityEngine.UI.Button no;
     private static string filePath;
     public static PauseMenuManager instance;
     [SerializeField] private AudioMixer mixer;
@@ -46,6 +48,7 @@ public class PauseMenuManager : MonoBehaviour
         }
         PauseMenu.SetActive(false);
         OptionsMenu.SetActive(false);
+        sureMenu.SetActive(false);
     }
 
     public void ActivatePause()
@@ -131,8 +134,20 @@ public class PauseMenuManager : MonoBehaviour
 
     public void MainMenu()
     {
+        PauseMenu.SetActive(false);
+        sureMenu.SetActive(true);
+    }
+
+    public void yesQuit()
+    {
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void noDontQuit()
+    {
+        PauseMenu.SetActive(true);
+        sureMenu.SetActive(false);
     }
     
     public void SaveOptions()

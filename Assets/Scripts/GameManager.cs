@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
             if (!isPaused && Input.GetKeyDown(KeyCode.Escape))
             {
                 PauseMenuManager.instance.ActivatePause();
+                MusicManager.instance.reduceMusicVolumePause();
                 Time.timeScale = 0;
                 isPaused = true;
                 player.GetComponent<Player>().enabled = false;
@@ -134,6 +135,7 @@ public class GameManager : MonoBehaviour
     public void UnPause()
     {
         Time.timeScale = 1;
+        MusicManager.instance.increaseMusicVolumePause();
         isPaused = false;
         PauseMenuManager.instance.Resume();
         if (player != null)
