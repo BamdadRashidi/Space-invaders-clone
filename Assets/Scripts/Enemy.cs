@@ -62,6 +62,10 @@ public abstract class Enemy : MonoBehaviour
                 aud.clip = clips[2];
                 aud.pitch = Random.Range(0.97f, 1.03f);
                 aud.Play();
+                if (this is UFO)
+                {
+                    StartCoroutine("playUFOsoundAgain");
+                }
             }
             if (this is ThinEnem)
                 anim.Play("ThinEnemy",0,0f);
@@ -99,7 +103,7 @@ public abstract class Enemy : MonoBehaviour
         }
         if (this is UFO)
         {
-            LifeManager.Instance.lives += 5;
+            LifeManager.Instance.lives += 7;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
         }
     }
@@ -107,6 +111,14 @@ public abstract class Enemy : MonoBehaviour
     public void flipSprite()
     {
         renderer.sprite = (renderer.sprite == sprites[0]) ? sprites[1] : sprites[0];
+    }
+
+    IEnumerator playUFOsoundAgain()
+    {
+        yield return new WaitForSeconds(0.09f);
+        aud.clip = clips[0];
+        aud.pitch = 1;
+        aud.Play();
     }
     
 }

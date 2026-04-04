@@ -59,6 +59,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: af2fb404d789401489f472bbf3a246d6, type: 3}
   - {fileID: 8300000, guid: 02028606ca16b644a960d8b47576d3b9, type: 3}
+  - {fileID: 8300000, guid: 092fcdc1688d93343af2e526aa8f6de4, type: 3}
   aud: {fileID: 0}
 --- !u!61 &2515132892946877843
 BoxCollider2D:

@@ -10,6 +10,7 @@ public class Wave : MonoBehaviour
     [SerializeField] private GameObject ThinEnemy;
     [SerializeField] private GameObject ThickEnemy;
     [SerializeField] private GameObject FollowEnemy;
+    [SerializeField] private GameObject player;
     [SerializeField] private int rows;
     [SerializeField] private int columns;
     [SerializeField] private float distance;
@@ -66,6 +67,11 @@ public class Wave : MonoBehaviour
         {
             Debug.Log("Boosted");
             BoostAliens();
+        }
+
+        if (transform.position.y <= 3)
+        {
+            player.GetComponent<Player>().MakePlayerAggressive();
         }
     }
 
@@ -172,7 +178,7 @@ public class Wave : MonoBehaviour
     {
         AlienCount--;
         int aliensKilled = AlienCountInit - AlienCount;
-        Debug.Log(AlienCount);
+        // Debug.Log(AlienCount);
         if (AlienCount <= 0 && !wavemanager.waveEnded)
         {
             wavemanager.waveEnded = true;
@@ -181,7 +187,7 @@ public class Wave : MonoBehaviour
         if (AlienCount != 0)
         {
             tempSpeedTimer = speedTimer - (0.015f * aliensKilled);
-            tempSpeedTimer = Mathf.Max(tempSpeedTimer, 0.07f);
+            tempSpeedTimer = Mathf.Max(tempSpeedTimer, 0.35f);
         }
     }
 
@@ -190,7 +196,7 @@ public class Wave : MonoBehaviour
         speedTimer -= 0.1f;
         if (speedTimer <= 0.2f)
         {
-            speedTimer = 0.2f;
+            speedTimer = 0.25f;
         }
         tempSpeedTimer = speedTimer;
     }
@@ -221,8 +227,8 @@ public class Wave : MonoBehaviour
             Enemy childScript = child.gameObject.GetComponent<Enemy>();
             childScript.firstOfRange -= Mathf.Floor(childScript.firstOfRange * 0.25f);
             childScript.lastOfRange -= Mathf.Floor(childScript.lastOfRange * 0.25f);
-            childScript.firstOfRange = Mathf.Max(childScript.firstOfRange, 0.2f);
-            childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.2f);
+            childScript.firstOfRange = Mathf.Max(childScript.firstOfRange, 0.25f);
+            childScript.lastOfRange = Mathf.Max(childScript.lastOfRange, 0.25f);
         }
         isboosted = true;
     }

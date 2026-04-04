@@ -51,6 +51,7 @@ MonoBehaviour:
   ThinEnemy: {fileID: 2752814629139902638, guid: e54d86e5ebe2c2a418c9aaeb083a8871, type: 3}
   ThickEnemy: {fileID: 4912885157132937664, guid: 0f7b3a9aeaf558f43b66a802970b1f55, type: 3}
   FollowEnemy: {fileID: 696845286272251578, guid: 26f202bcba1c89b4ea61424bb01f8774, type: 3}
+  player: {fileID: 3723332388307438807, guid: 93780215ec782e245b3f543c10043b4b, type: 3}
   rows: 5
   columns: 8
   distance: 6

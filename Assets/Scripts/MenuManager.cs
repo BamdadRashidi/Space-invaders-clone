@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider masterSlide;
     [SerializeField] private UnityEngine.UI.Slider musicSlide;
     [SerializeField] private UnityEngine.UI.Slider SFXslide;
-    
+    [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private AudioMixer mixer;
     
     private static string filePath;
@@ -53,6 +53,7 @@ public class MenuManager : MonoBehaviour
 
     public void option()
     {
+        title.gameObject.SetActive(false);
         OptionsMenu.SetActive(true);
         MainMenu.SetActive(false);
         isInOptions = true;
@@ -118,6 +119,7 @@ public class MenuManager : MonoBehaviour
 
     public void returnBackToMain()
     {
+        title.gameObject.SetActive(true);
         OptionsMenu.SetActive(false);
         MainMenu.SetActive(true);
         isInOptions = false;
@@ -125,13 +127,15 @@ public class MenuManager : MonoBehaviour
 
     public void ActivateCredits()
     {
+        title.gameObject.SetActive(false);
         isInCredits = true;
         Credits.SetActive(true);
         MainMenu.SetActive(false);
     }
 
     public void returnToMain()
-    {
+    {    
+        title.gameObject.SetActive(true);
         isInCredits = false;
         Credits.SetActive(false);
         MainMenu.SetActive(true);

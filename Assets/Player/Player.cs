@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 {
     private Vector2 direction = Vector2.zero;
     private Vector2 initialPosition;
+    private float initialFireRate;
+    private int initialSpeed;
     [SerializeField] public int speed;
     [SerializeField] private float fireRate; 
     [SerializeField] private Rigidbody2D rb;
@@ -35,6 +37,8 @@ public class Player : MonoBehaviour
         renderer = GetComponent<SpriteRenderer>();
         aud = GetComponent<AudioSource>();
         movementsrc = movementAud.GetComponent<AudioSource>();
+        initialFireRate = fireRate;
+        initialSpeed = speed;
     }
     
     void Update()
@@ -88,6 +92,8 @@ public class Player : MonoBehaviour
     
     public void resetPlayer()
     {
+        speed = initialSpeed;
+        fireRate = initialFireRate;
         transform.position = initialPosition;
         collider.enabled = true;
         renderer.enabled = true;
@@ -111,6 +117,14 @@ public class Player : MonoBehaviour
         rb.velocity = Vector2.zero;
         this.enabled = false;
     }
-    
 
+
+    public void MakePlayerAggressive()
+    {
+        if (fireRate == 0.3f)
+        {
+            fireRate -= 0.1f;
+            speed += 15;
+        }
+    }
 }

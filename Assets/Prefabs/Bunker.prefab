@@ -67,6 +67,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 27b6e0fa0c6f8d847822bd75ffd2c02a, type: 3}
   aud: {fileID: 0}
   shatterParticle: {fileID: 7251754672857045381}
+  player: {fileID: 3723332388307438807, guid: 93780215ec782e245b3f543c10043b4b, type: 3}
 --- !u!95 &-919455674710884951
 Animator:
   serializedVersion: 5
@@ -163,7 +164,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.3, y: 6}
+  m_Size: {x: 7, y: 7}
   m_EdgeRadius: 0
 --- !u!198 &-5888081965227067994
 ParticleSystem:

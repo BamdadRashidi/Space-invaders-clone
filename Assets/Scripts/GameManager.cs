@@ -133,7 +133,6 @@ public class GameManager : MonoBehaviour
     
     public void UnPause()
     {
-        // TODO: Fix player becoming paralyzed
         Time.timeScale = 1;
         isPaused = false;
         PauseMenuManager.instance.Resume();
@@ -155,7 +154,6 @@ public class GameManager : MonoBehaviour
         player.enabled = true;
         DestroyAllBullets();
         waveManager.ResetWaveState();
-        waveManager.CreateBunkers();
         wave.ResetWaveAtDeath();
         LifeManager.isInDeathSequence = false;
         LifeManager.isGameOvered = false;

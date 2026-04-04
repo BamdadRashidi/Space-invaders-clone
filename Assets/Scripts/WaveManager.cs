@@ -15,7 +15,8 @@ public class WaveManager : MonoBehaviour
     private float timer;
     public Wave wave;
     public bool waveEnded;
-    private int state = 5; 
+    private int state = 5;
+    private bool diedInthisWave = false;
     void Awake()
     {
         player = FindObjectOfType<Player>();
@@ -39,7 +40,6 @@ public class WaveManager : MonoBehaviour
 
         if (timer <= 0)
         {
-            MusicManager.instance.PlayMusicForScene(SceneManager.GetActiveScene().name);
             ScoreManager.Instance.FinalizeScore();
             wave.resetWaveAtStart();
             timer = timerToNextWave;
@@ -47,12 +47,14 @@ public class WaveManager : MonoBehaviour
 
         if (player.died && !waveEnded)
         {
+            diedInthisWave = true;
             setHighestWave();
         }
 
         if (state == waveCount)
         {
-            LifeManager.Instance.lives += 2;
+            CreateBunkers();
+            LifeManager.Instance.lives += 3;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
             state += 5; 
         }
@@ -78,6 +80,7 @@ public class WaveManager : MonoBehaviour
     {
         waveEnded = false;
         timer = timerToNextWave;
+        diedInthisWave = false;
     }
 
     public void RemoveBunkers()
@@ -91,8 +94,9 @@ public class WaveManager : MonoBehaviour
 
     public void CreateBunkers()
     {
+        Destroy(bunkers);
         GameObject[] ExistingBunkers = GameObject.FindGameObjectsWithTag("Bunker");
-        if (ExistingBunkers.Length == 0)
+        if (ExistingBunkers.Length < 3 && !diedInthisWave)
         {
             Instantiate(bunkers, new Vector3(11,-8,0.2f),Quaternion.identity);
         }

@@ -30,7 +30,7 @@ public class UFOSpawner : MonoBehaviour
     void Update()
     {
         SpawnTimer -= Time.deltaTime;
-        if (SpawnTimer <= 0 || waveManager.waveCount % 20 == 0 || waveManager.waveCount % 35 == 0 || waveManager.waveCount == 10)
+        if (SpawnTimer <= 0 || (waveManager.waveCount % 20 == 0 || waveManager.waveCount % 35 == 0 || waveManager.waveCount == 10))
         {
             if (CoinFlip == 1)
             {
