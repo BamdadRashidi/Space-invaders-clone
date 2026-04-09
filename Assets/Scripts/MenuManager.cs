@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject OptionsMenu;
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject Credits;
+    [SerializeField] private GameObject waveSelection;
     [SerializeField] private UnityEngine.UI.Toggle vsyncToggle;
     [SerializeField] private TMP_Dropdown screenModeDD;
     [SerializeField] private UnityEngine.UI.Slider masterSlide;
@@ -20,8 +21,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider SFXslide;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private AudioMixer mixer;
-    
+    private bool isInMenu = false;
     private static string filePath;
+    private static string savePath;
     public static MenuManager instance;
     
     private void Awake()
@@ -32,9 +34,11 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         filePath = Path.Combine(Application.persistentDataPath, "Options.json");
-        OptionsMenu.SetActive(false);
+        savePath = Path.Combine(Application.persistentDataPath, "Save.json");
         MainMenu.SetActive(true);
+        OptionsMenu.SetActive(false);
         Credits.SetActive(false);
+        waveSelection.SetActive(false);
         LoadOptions();
     }
     
@@ -44,6 +48,17 @@ public class MenuManager : MonoBehaviour
         {
             returnBackToMain();
         }
+        if (isInMenu && Input.GetKeyDown(KeyCode.Escape))
+        {
+            returnBackToMain();
+        }
+    }
+
+    public void Swap()
+    {
+        isInMenu = true;
+        MainMenu.SetActive(false);
+        waveSelection.SetActive(true);
     }
 
     public void Play()
@@ -120,6 +135,7 @@ public class MenuManager : MonoBehaviour
     public void returnBackToMain()
     {
         title.gameObject.SetActive(true);
+        waveSelection.SetActive(false);
         OptionsMenu.SetActive(false);
         MainMenu.SetActive(true);
         isInOptions = false;
@@ -139,6 +155,91 @@ public class MenuManager : MonoBehaviour
         isInCredits = false;
         Credits.SetActive(false);
         MainMenu.SetActive(true);
+    }
+
+    private bool checkSaveFileContnet(SaveEntity entity)
+    {
+        return entity != null;
+    }
+    public void selectWave(int number)
+    {
+        SaveEntity ent = LoadSaveFile();
+        switch (number)
+        {
+            case 1:
+                break;
+            case 2:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 4)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            case 4:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 8)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            case 6:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 12)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            case 8:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 16)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            case 10:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 20)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            case 12:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 24)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            case 15:
+                if (checkSaveFileContnet(ent) && ent.highestWave >= 30)
+                {
+                    // TODO: add the method to set everything up
+                }
+                else
+                {
+                    Debug.Log("Haven't reached high wave");
+                }
+                break;
+            Play();
+        }
     }
 
     public void SaveOptions()
@@ -171,8 +272,18 @@ public class MenuManager : MonoBehaviour
             mixer.SetFloat("MasterVolume", Mathf.Log10(masterSlide.value) * 20);
             mixer.SetFloat("MusicVolume", Mathf.Log10(musicSlide.value) * 20);
             mixer.SetFloat("SFXVolume", Mathf.Log10(SFXslide.value) * 20);
-
         }
+    }
+
+    private SaveEntity LoadSaveFile()
+    {
+        SaveEntity fileEntity = null;
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            fileEntity = JsonUtility.FromJson<SaveEntity>(json);
+        }
+        return fileEntity;
     }
 }
 

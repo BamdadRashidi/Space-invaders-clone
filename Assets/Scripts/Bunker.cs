@@ -8,9 +8,12 @@ public class Bunker : Enemy
     private bool deathAnimBegin = false;
     [SerializeField] private GameObject shatterParticle;
     private ParticleSystem shatPart;
+    [SerializeField] private GameObject breakParticleGO;
+    private ParticleSystem breakPart;
     private int stages = 0;
     private void Start()
     {
+        breakPart = breakParticleGO.GetComponent<ParticleSystem>();
         shatPart = shatterParticle.GetComponentInChildren<ParticleSystem>();
     }
 
@@ -18,6 +21,7 @@ public class Bunker : Enemy
     {
         if (this.HP <= 75 && this.HP > 50 && stages == 0)
         {
+            aud.volume = 1f;
             aud.pitch = 1.25f;
             aud.PlayOneShot(clips[0]);
             shatPart.Play();
@@ -26,6 +30,7 @@ public class Bunker : Enemy
         }
         else if (this.HP <= 50 && this.HP > 25 && stages == 1)
         {
+            aud.volume = 1f;
             aud.pitch = 1.5f;
             aud.PlayOneShot(clips[0]);
             if (!shatPart.isPlaying)
@@ -37,6 +42,7 @@ public class Bunker : Enemy
         }
         else if (this.HP <= 25 && this.HP > 0 && stages == 2)
         {
+            aud.volume = 1f;
             aud.pitch = 1.75f;
             aud.PlayOneShot(clips[0]);
             if (!shatPart.isPlaying)
@@ -73,12 +79,18 @@ public class Bunker : Enemy
         if (other.gameObject.layer == LayerMask.NameToLayer("Bullet") || other.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
             takeDamage(1);
+            breakPart.Play();
+            aud.volume = 0.4f;
+            aud.pitch = 0.5f;
+            aud.PlayOneShot(clips[2]);
             Destroy(other.gameObject);
         }
     }
     
     IEnumerator PlayDeathAnim()
     {
+        aud.volume = 1;
+        aud.pitch = 1f;
         aud.PlayOneShot(clips[1]);
         deathAnimBegin = true;
         anim.enabled = true;
