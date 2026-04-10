@@ -27,8 +27,13 @@ public class Player : MonoBehaviour
     private ParticleSystem muzzlePart;
     private int chances = 2;
     private bool isHurt = false;
-    private float IFramesInit = 0.3f;
+    private float IFramesInit = 2f;
     private float IframesTimer;
+    [SerializeField] private GameObject smokeParticleGo;
+    private ParticleSystem smokePart;    
+    [SerializeField] private GameObject sparkelParticleGO;
+    private ParticleSystem sparks;
+    private Animator anim;
     void Start()
     {
         muzzlePart = movementAud.GetComponent<ParticleSystem>();
@@ -44,6 +49,10 @@ public class Player : MonoBehaviour
         initialFireRate = fireRate;
         initialSpeed = speed;
         IframesTimer = IFramesInit;
+        smokePart = smokeParticleGo.GetComponent<ParticleSystem>();
+        sparks = sparkelParticleGO.GetComponent<ParticleSystem>();
+        anim = GetComponent<Animator>();
+        anim.enabled = false;
     }
     
     void Update()
@@ -66,6 +75,7 @@ public class Player : MonoBehaviour
                 isHurt = false;
                 IframesTimer = IFramesInit;
                 collider.enabled = true;
+                anim.enabled = false;
             }
         }
         
@@ -111,6 +121,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer != LayerMask.NameToLayer("Bullet") &&
             other.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
+            
+            if (chances > 0)
+            {
+                aud.PlayOneShot(clips[2]);
+            }
             hurtPlayer();
             Destroy(other.gameObject,0.2f);
         }
@@ -118,6 +133,13 @@ public class Player : MonoBehaviour
 
     public void hurtPlayer()
     {
+        anim.enabled = true;
+        if (!smokePart.isPlaying && !sparks.isPlaying)
+        {
+            smokePart.Play();
+            sparks.Play();
+        }
+        anim.Play("PlayerHurt");
         chances--;
         isHurt = true;
         //TODO: add effects
@@ -129,6 +151,7 @@ public class Player : MonoBehaviour
     
     public void resetPlayer()
     {
+        smokePart.Stop();
         speed = initialSpeed;
         fireRate = initialFireRate;
         transform.position = initialPosition;
@@ -156,6 +179,8 @@ public class Player : MonoBehaviour
         renderer.enabled = false;
         rb.velocity = Vector2.zero;
         this.enabled = false;
+        sparks.Stop();
+        smokePart.Stop();
     }
 
 

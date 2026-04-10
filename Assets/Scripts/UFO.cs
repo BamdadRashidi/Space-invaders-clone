@@ -106,7 +106,6 @@ public class UFO : Enemy
 
     private void vanish()
     {
-        //TODO: add vanishing animation, audio and sound
         Destroy(this.gameObject,1);
     }
     protected override void GiveScore()
