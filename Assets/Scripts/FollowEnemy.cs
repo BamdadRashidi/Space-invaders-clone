@@ -11,7 +11,7 @@ public class FollowEnemy : Enemy
     {
         if (!player.GetComponent<Player>().died)
         {
-            aud.volume = 0.5f;
+            aud.volume = 0.6f;
             Vector2 aim = (player.transform.position - bulletSpawnPos.transform.position).normalized;
             float angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
             aud.pitch = Random.Range(0.95f, 1.05f);

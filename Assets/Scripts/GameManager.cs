@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
+using Random = System.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +18,10 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     [SerializeField] private GameObject whiteFlash;
     [SerializeField] private Camera cam;
+    private AudioSource aud;
     void Start()
     {
+        aud = GetComponent<AudioSource>();
         cam.GetComponent<Animator>().enabled = false;
         waveManager = FindObjectOfType<WaveManager>();
         wave = FindObjectOfType<Wave>();
@@ -164,5 +167,9 @@ public class GameManager : MonoBehaviour
         {
             UFO.instance.aud.volume = 0.5f;
         }
+    }
+    public void PlaySound()
+    {
+        aud.Play();
     }
 }

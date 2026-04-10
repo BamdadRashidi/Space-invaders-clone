@@ -58,6 +58,7 @@ public class WaveManager : MonoBehaviour
             LifeManager.Instance.lives += 3;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
             state += 5; 
+            GameManager.instance.PlaySound();
         }
     }
 

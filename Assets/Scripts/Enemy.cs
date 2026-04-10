@@ -23,6 +23,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Sprite[] sprites;
     [SerializeField] protected AudioClip[] clips;
     public AudioSource aud;
+    private int RNGsus = 0;
     public void Awake()
     {
         aud = GetComponent<AudioSource>();
@@ -60,6 +61,7 @@ public abstract class Enemy : MonoBehaviour
             if (this.HP > 1)
             {
                 aud.clip = clips[2];
+                aud.volume = 0.8f;
                 aud.pitch = Random.Range(0.97f, 1.03f);
                 aud.Play();
                 if (this is UFO)
@@ -85,7 +87,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Die()
     {
-        aud.volume = 0.6f;
+        aud.volume = 0.7f;
         aud.pitch = Random.Range(0.95f, 1.05f);
         aud.clip = clips[1];
         aud.Play();
@@ -95,7 +97,6 @@ public abstract class Enemy : MonoBehaviour
         {
             wave.reduceAlien();
         }
-
         if (!(this is Bunker))
         {
             renderer.enabled = false;
@@ -124,12 +125,12 @@ public abstract class Enemy : MonoBehaviour
 
     public void getALifeBro()
     {
-        int RNGsus = Random.Range(1,101);
-        if (RNGsus % 25 == 0)
+        RNGsus = Random.Range(1,101);
+        if (RNGsus % 33 == 0)
         {
             LifeManager.Instance.lives++;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
-            //TODO: add sound
+            GameManager.instance.PlaySound();
         }
     }
     

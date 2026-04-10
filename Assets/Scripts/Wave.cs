@@ -129,6 +129,7 @@ public class Wave : MonoBehaviour
 
     public void moveFormationV()
     {
+        aud.pitch = Random.Range(0.95f, 1.05f);
         aud.Play();
         transform.position -= new Vector3(0,distance/2f);
         needToDescend = false;
@@ -145,7 +146,7 @@ public class Wave : MonoBehaviour
     public void resetWaveAtStart()
     {
         wavemanager.waveEnded = false;
-        aud.volume = 0.25f;
+        aud.volume = 0.35f;
         coinflip = Random.Range(0, 2);
         switch (coinflip)
         {

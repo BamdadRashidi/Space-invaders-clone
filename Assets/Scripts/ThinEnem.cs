@@ -8,7 +8,7 @@ public class ThinEnem : Enemy
     [SerializeField] private GameObject bullet;
     public override void shoot()
     {
-        aud.volume = 0.5f;
+        aud.volume = 0.6f;
         aud.pitch = Random.Range(0.95f, 1.05f);
         aud.clip = clips[0];
         aud.Play();

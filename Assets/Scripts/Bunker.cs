@@ -80,7 +80,7 @@ public class Bunker : Enemy
         {
             takeDamage(1);
             breakPart.Play();
-            aud.volume = 0.4f;
+            aud.volume = 0.35f;
             aud.pitch = 0.5f;
             aud.PlayOneShot(clips[2]);
             Destroy(other.gameObject);
