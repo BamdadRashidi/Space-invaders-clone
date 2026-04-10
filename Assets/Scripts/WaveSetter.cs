@@ -7,10 +7,9 @@ using UnityEngine.SceneManagement;
 public class WaveSetter : MonoBehaviour
 {
     public static WaveSetter instance;
-    private bool isInGame = false;
-    private bool gotReferences = false;
     private Wave wave;
     private WaveManager waveM;
+    private int targetWave = -1;
     private void Awake()
     {
         if (instance != this && instance != null)
@@ -27,25 +26,42 @@ public class WaveSetter : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Maingame")
+        if (SceneManager.GetActiveScene().name != "Maingame")
         {
-            isInGame = true;
+            return;
         }
 
-        if (!gotReferences && wave == null && waveM == null && isInGame)
+        if (wave == null)
         {
             wave = FindObjectOfType<Wave>();
+        }
+
+        if (waveM == null)
+        {
             waveM = FindObjectOfType<WaveManager>();
-            gotReferences = true;
+        }
+
+        if (wave != null && waveM != null && targetWave > 0)
+        {
+            ApplyWave();
         }
     }
 
     public void SetWave(int waveNumber)
     {
         Debug.Log("Set Wave number: " + waveNumber);
-        if (isInGame && gotReferences)
+        targetWave = waveNumber;
+    }
+
+    public void ApplyWave()
+    {
+        waveM.waveCount = targetWave - 1;
+        for (int i = 1; i < targetWave; i++)
         {
-            return;
+            wave.increaseDifficultyPerWave();
         }
+        wave.resetWaveAtStart();
+        UIManager.instance.UpdateWave(targetWave);
+        targetWave = -1;
     }
 }

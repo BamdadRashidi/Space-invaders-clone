@@ -54,6 +54,10 @@ public class MenuManager : MonoBehaviour
         {
             returnBackToMain();
         }
+        if (isInCredits && Input.GetKeyDown(KeyCode.Escape))
+        {
+            returnToMain();
+        }
     }
 
     public void Swap()
@@ -169,11 +173,12 @@ public class MenuManager : MonoBehaviour
         switch (number)
         {
             case 1:
+                    WaveSetter.instance.SetWave(number);
                 break;
             case 2:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 4)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -185,7 +190,7 @@ public class MenuManager : MonoBehaviour
             case 4:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 8)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -197,7 +202,7 @@ public class MenuManager : MonoBehaviour
             case 6:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 12)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -209,7 +214,7 @@ public class MenuManager : MonoBehaviour
             case 8:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 16)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -221,7 +226,7 @@ public class MenuManager : MonoBehaviour
             case 10:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 20)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -233,7 +238,7 @@ public class MenuManager : MonoBehaviour
             case 12:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 24)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -245,7 +250,7 @@ public class MenuManager : MonoBehaviour
             case 15:
                 if (checkSaveFileContnet(ent) && ent.highestWave >= 30)
                 {
-                    // TODO: add the method to set everything up
+                    WaveSetter.instance.SetWave(number);
                 }
                 else
                 {
@@ -254,7 +259,7 @@ public class MenuManager : MonoBehaviour
                     return;
                 }
                 break;
-        }
+        } 
         Play();
     }
 
