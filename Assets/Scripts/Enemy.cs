@@ -125,8 +125,8 @@ public abstract class Enemy : MonoBehaviour
 
     public void getALifeBro()
     {
-        RNGsus = Random.Range(1,101);
-        if (RNGsus % 33 == 0)
+        RNGsus = Random.Range(1,301);
+        if (RNGsus % 103 == 0 && LifeManager.Instance.lives < 6)
         {
             LifeManager.Instance.lives++;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);

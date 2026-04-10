@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
     {
         muzzlePart.Play();
         aud.clip = clips[0];
-        aud.volume = 0.6f;
+        aud.volume = 0.5f;
         aud.pitch = Random.Range(0.95f, 1.05f);
         aud.Play();
         Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
@@ -199,5 +199,7 @@ public class Player : MonoBehaviour
     public void chargeChances()
     {
         chances = 2;
+        sparks.Stop();
+        smokePart.Stop();
     }
 }
