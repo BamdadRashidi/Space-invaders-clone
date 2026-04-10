@@ -43,6 +43,7 @@ public class WaveManager : MonoBehaviour
             ScoreManager.Instance.FinalizeScore();
             wave.resetWaveAtStart();
             timer = timerToNextWave;
+            player.chargeChances();
         }
 
         if (player.died && !waveEnded)

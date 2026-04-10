@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject movementAud;
     public AudioSource movementsrc;
     private ParticleSystem muzzlePart;
+    private int chances = 2;
+    private bool isHurt = false;
+    private float IFramesInit = 0.3f;
+    private float IframesTimer;
     void Start()
     {
         muzzlePart = movementAud.GetComponent<ParticleSystem>();
@@ -39,10 +43,32 @@ public class Player : MonoBehaviour
         movementsrc = movementAud.GetComponent<AudioSource>();
         initialFireRate = fireRate;
         initialSpeed = speed;
+        IframesTimer = IFramesInit;
     }
     
     void Update()
     {
+
+        if (transform.position.x <= -59 || transform.position.x >= 59)
+        {
+            transform.position = new Vector3(0, -25, 0);
+        }
+        
+        if (isHurt)
+        {
+            IframesTimer -= Time.deltaTime;
+            if (IframesTimer > 0)
+            {
+                collider.enabled = false;
+            }
+            if (IframesTimer <= 0)
+            {
+                isHurt = false;
+                IframesTimer = IFramesInit;
+                collider.enabled = true;
+            }
+        }
+        
         timerCounter -= Time.deltaTime;
         if (Input.GetKey(KeyCode.Space) && timerCounter <= 0f)
         {
@@ -85,8 +111,19 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer != LayerMask.NameToLayer("Bullet") &&
             other.gameObject.layer != LayerMask.NameToLayer("Wall"))
         {
-            died = true;
+            hurtPlayer();
             Destroy(other.gameObject,0.2f);
+        }
+    }
+
+    public void hurtPlayer()
+    {
+        chances--;
+        isHurt = true;
+        //TODO: add effects
+        if (chances <= 0)
+        {
+            died = true;
         }
     }
     
@@ -99,6 +136,9 @@ public class Player : MonoBehaviour
         renderer.enabled = true;
         died = false;
         movementsrc.volume = 0.32f;
+        isHurt = false;
+        IframesTimer = IFramesInit;
+        chargeChances();
     }
 
 
@@ -126,5 +166,10 @@ public class Player : MonoBehaviour
             fireRate -= 0.1f;
             speed += 15;
         }
+    }
+
+    public void chargeChances()
+    {
+        chances = 2;
     }
 }

@@ -106,6 +106,7 @@ public abstract class Enemy : MonoBehaviour
             LifeManager.Instance.lives += 7;
             UIManager.instance.UpdateLives(LifeManager.Instance.lives);
         }
+        getALifeBro();
     }
 
     public void flipSprite()
@@ -119,6 +120,17 @@ public abstract class Enemy : MonoBehaviour
         aud.clip = clips[0];
         aud.pitch = 1;
         aud.Play();
+    }
+
+    public void getALifeBro()
+    {
+        int RNGsus = Random.Range(1,101);
+        if (RNGsus % 25 == 0)
+        {
+            LifeManager.Instance.lives++;
+            UIManager.instance.UpdateLives(LifeManager.Instance.lives);
+            //TODO: add sound
+        }
     }
     
 }

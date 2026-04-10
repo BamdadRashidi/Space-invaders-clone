@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 2
-  firstOfRange: 7.5
-  lastOfRange: 10.5
+  firstOfRange: 7.3
+  lastOfRange: 10.3
   firstOfRangeinit: 0
   lastOfRangeinit: 0
   sprites:

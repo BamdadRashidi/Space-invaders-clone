@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fef4a3032e85a2d4e9a8cfc8b4ba13ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 13
+  speed: 12
   collider: {fileID: 0}
   DestroyTimer: 5
   bulletId: 0
