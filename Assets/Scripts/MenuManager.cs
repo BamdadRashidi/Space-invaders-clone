@@ -24,6 +24,7 @@ public class MenuManager : MonoBehaviour
     private bool isInMenu = false;
     private static string filePath;
     private static string savePath;
+    private AudioSource aud;
     public static MenuManager instance;
     
     private void Awake()
@@ -40,6 +41,7 @@ public class MenuManager : MonoBehaviour
         Credits.SetActive(false);
         waveSelection.SetActive(false);
         LoadOptions();
+        aud = GetComponent<AudioSource>();
     }
     
     private void Update()
@@ -175,7 +177,9 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number);
+                    return;
                 }
                 break;
             case 4:
@@ -185,7 +189,9 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number);
+                    return;
                 }
                 break;
             case 6:
@@ -195,7 +201,9 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number);
+                    return;
                 }
                 break;
             case 8:
@@ -205,7 +213,9 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number);
+                    return;
                 }
                 break;
             case 10:
@@ -215,7 +225,9 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number);
+                    return;
                 }
                 break;
             case 12:
@@ -225,7 +237,9 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number);
+                    return;
                 }
                 break;
             case 15:
@@ -235,11 +249,13 @@ public class MenuManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Haven't reached high wave");
+                    aud.Play();
+                    Debug.Log("Haven't reached high wave: " + number * 2);
+                    return;
                 }
                 break;
-            Play();
         }
+        Play();
     }
 
     public void SaveOptions()
