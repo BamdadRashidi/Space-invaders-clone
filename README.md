@@ -7,9 +7,10 @@ As the name suggests, this project is a clone of the popular retro game "Space I
 - Main menu: SON... ALMOST EVERY GAME HAS THIS!!!! 😐🗿
 - The main game: It's just space invaders with some tweaks.
 - A wave selector: At the start of the game, you can choose which wave are you going to start on so that you don't have to always start from wave 1. however keep in mind that you have to unlock that wave first by reaching double of that said wave. <br>
-![1](Screenshots/1.png)
-![2](Screenshots/2.png)
-![3](Screenshots/3.png)
+<br>
+![2](Screenshots/1.png)
+![3](Screenshots/2.png)
+![1](Screenshots/3.png)
 ![4](Screenshots/4.png)
 ![5](Screenshots/5.png)
 
