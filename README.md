@@ -4,9 +4,9 @@
 As the name suggests, this project is a clone of the popular retro game "Space Invaders". Shoot up aliens, dodge their deadly bullets and try to survive for as long as you can while gathering points and sending the aliens to where they belong, D E A T H.
 
 ## Features
-- Main menu: SON... ALMOST EVERY GAME HAS THIS!!!! 😐🗿
-- The main game: It's just space invaders with some tweaks.
-- A wave selector: At the start of the game, you can choose which wave are you going to start on so that you don't have to always start from wave 1. however keep in mind that you have to unlock that wave first by reaching double of that said wave. <br>
+- <b>Main menu:</b> SON... ALMOST EVERY GAME HAS THIS!!!! 😐🗿
+- <b>The main game:</b> It's just space invaders with some tweaks.
+- <b>A wave selector:</b> At the start of the game, you can choose which wave are you going to start on so that you don't have to always start from wave 1. however keep in mind that you have to unlock that wave first by reaching double of that said wave. <br>
 
 ![2](Screenshots/2.png)
 ![3](Screenshots/3.png)
@@ -15,7 +15,7 @@ As the name suggests, this project is a clone of the popular retro game "Space I
 ![5](Screenshots/5.png)
 
 ## How to play?
-1. Export all of the content of game.zip. The game can be downloaded ![here](https://drive.google.com/file/d/1ZL98cIGQNYNsMhfeZvJVtbeqHE66uIQG/view?usp=sharing). (Make sure to export otherwise your high score and highest wave won't be saved)
+1. Export all of the content of game.zip. The game can be downloaded [here](https://drive.google.com/file/d/1ZL98cIGQNYNsMhfeZvJVtbeqHE66uIQG/view?usp=sharing). (Make sure to export otherwise your high score and highest wave won't be saved)
 2. Use the arrow keys to move the ship around.
 3. Press the Space button to shoot.
 4. If you want to pause, press Esc.
@@ -29,9 +29,9 @@ The entire game including all of the assets were made within the span of 15 days
 No AI was used for the pixel art, music, UI and sound effects as all of them were hand made. <br>
 
 ### The Tech stack
-- Game engine used: Unity
-- Pixel art and animations program: Aseprite
-- Music and SFX: FL studio
+- <b>Game engine used</b>: Unity
+- <b>Pixel art and animations program</b>: Aseprite
+- <b>Music and SFX</b>: FL studio
 
 ### Project structure
 The structure is messy but you can handle it.
@@ -52,5 +52,5 @@ Things that i suggest to add and why:
 5. <b>More features: </b> this game is the bare minimum version of space invaders with some super small tweaks. This project can be your canvas. so take your brush and turn this project B I G G E R.
 
 ## Credits
-Programming, Design, Pixel Art, Animation, Music, SFX, Testing, Direction and Planning: MohammadAmin "Bamdad" Rashidi. <br>
+<b>Programming, Design, Pixel Art, Animation, Music, SFX, Testing, Direction and Planning</b>: MohammadAmin "Bamdad" Rashidi. <br>
 Shoutouts to GapGPT, that thing was a savior during the massive internet blackout.
