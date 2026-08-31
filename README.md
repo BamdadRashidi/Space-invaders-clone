@@ -15,7 +15,7 @@ As the name suggests, this project is a clone of the popular retro game "Space I
 ![5](Screenshots/5.png)
 
 ## How to play?
-1. Export all of the content of game.zip. (Make sure to export otherwise your high score and highest wave won't be saved)
+1. Export all of the content of game.zip. The game can be downloaded ![here](https://drive.google.com/file/d/1ZL98cIGQNYNsMhfeZvJVtbeqHE66uIQG/view?usp=sharing). (Make sure to export otherwise your high score and highest wave won't be saved)
 2. Use the arrow keys to move the ship around.
 3. Press the Space button to shoot.
 4. If you want to pause, press Esc.
