@@ -24,6 +24,9 @@ As the name suggests, this project is a clone of the popular retro game "Space I
 7. Manage your lives, pay attention to the sounds.
 8. Have fun :)
 
+> [!IMPORTANT]
+> The downloadable zip and therefore the playable game is <b>Windows exclusive</b>.
+
 ## The Technical aspect
 The entire game including all of the assets were made within the span of 15 days of the Iranian new year holiday. <br>
 No AI was used for the pixel art, music, UI and sound effects as all of them were hand made. <br>
